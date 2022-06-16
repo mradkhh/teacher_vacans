@@ -1,0 +1,17 @@
+:root {
+  --bg: #F4F5F8;
+  --white: #fff;
+  --black: #000;
+  --blue: #1B53F4;
+  --blue-hover: #1a48d3;
+  --light: #F2FAFF;
+  --dark-blue: #04285B;
+  --orange: #F5B314;
+  --green: #46CB5C;
+  --pink: #D246D4;
+  --gray: #8D98B5;
+  --dark: #252A3B;
+
+  --shadow: 0px 4px 8px rgba(33, 37, 50, 0.03);
+  --search-shadow: 0px 16px 16px rgba(33, 37, 50, 0.03);
+}
