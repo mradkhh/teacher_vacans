@@ -4,11 +4,14 @@
   --black: #000;
   --blue: #1B53F4;
   --blue-hover: #1a48d3;
-  --light: #F2FAFF;
+  --light: #e8edf1;
+  --lighter: #e3f1fb30;
+  --lightest: #e3f1fb15;
   --dark-blue: #04285B;
   --orange: #F5B314;
   --green: #46CB5C;
   --pink: #D246D4;
+  --red: #FF725E;
   --gray: #8D98B5;
   --dark: #252A3B;
 

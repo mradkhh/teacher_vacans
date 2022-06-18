@@ -1,0 +1,25 @@
+#header {
+  padding-block: 4px;
+  box-shadow: var(--shadow);
+
+  .header {
+    gap: 56px;
+
+    .header__nav {
+      margin-right: auto;
+      &-links {
+        gap: 24px;
+
+        li {
+          a {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 130%;
+            text-transform: uppercase;
+            // color: #26292e;
+          }
+        }
+      }
+    }
+  }
+}

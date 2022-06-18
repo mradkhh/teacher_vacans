@@ -7,8 +7,9 @@
 }
 
 body {
-  font-family: 'Poppins', serif;
+  font-family: 'Source Sans PRo', sans-serif;
   color: var(--dark-blue);
+  line-height: 1;
 }
 
 li {
@@ -34,12 +35,12 @@ a:hover {
 
 h1 {
   font-weight: 700;
-  font-size: 46px;
+  font-size: 42px;
   line-height: 140%;
-  color: var(--blue);
+  color: var(--dark-blue);
 
   @media (max-width: 678px) {
-    font-size: 38px;
+    font-size: 36px;
   }
   @media (max-width: 480px) {
     font-size: 32px;
@@ -48,14 +49,28 @@ h1 {
 
 h2 {
   font-weight: 700;
-  font-size: 32px;
+  font-size: 28px;
   line-height: 140%;
+  color: var(--dark-blue);
 
   @media (max-width: 678px) {
-    font-size: 28px;
+    font-size: 24px;
   }
   @media (max-width: 480px) {
-    font-size: 24px;
+    font-size: 20px;
+  }
+}
+h3 {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 140%;
+  color: var(--dark-blue);
+
+  @media (max-width: 678px) {
+    font-size: 22px;
+  }
+  @media (max-width: 480px) {
+    font-size: 20px;
   }
 }
 
@@ -64,6 +79,10 @@ p {
   font-size: 16px;
   line-height: 150%;
   color: var(--gray);
+}
+
+.active {
+  color: var(--blue);
 }
 
 
@@ -78,15 +97,17 @@ input {
 button[datatype='blue'] {
   background-color: var(--blue);
   border: none;
-  padding: 19px 54px;
+  padding: 12px 48px;
   border-radius: 10px;
   color: var(--white);
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
   cursor: pointer;
 
   &:hover {
     background-color: var(--blue-hover);
+    transition: all 200ms ease;
   }
 }
 
@@ -99,4 +120,8 @@ button[datatype='blue'] {
   .md-min-none {
     display: none;
   }
+}
+
+.ant-pagination {
+
 }

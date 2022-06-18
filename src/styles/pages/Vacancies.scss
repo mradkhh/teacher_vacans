@@ -1,0 +1,64 @@
+#vacancies {
+  margin-block: 48px;
+  .vacancies__title {
+    margin-bottom: 24px;
+  }
+
+  .vacancies {
+    align-items: start;
+    gap: 12px;
+
+    .vacanciesCategory {
+      box-sizing: border-box;
+      min-width: 240px;
+      border: 1px solid var(--light);
+      padding: 24px;
+      border-radius: 14px;
+    }
+
+    .vacanciesItems {
+      width: 100%;
+
+      > a {
+        &:hover {
+          color: var(--dark-blue);
+        }
+      }
+      .pagination {
+        margin-block: 48px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .ant-pagination-item-active {
+          border-color: var(--blue);
+
+          &:hover {
+
+            a {
+              color: var(--blue);
+            }
+          }
+          a {
+            color: var(--blue);
+
+            &:hover {
+              color: var(--blue);
+            }
+          }
+        }
+
+        .ant-pagination-item {
+          &:hover {
+            border-color: var(--blue);
+          }
+          &:hover {
+            a {
+              color: var(--blue);
+            }
+          }
+        }
+      }
+    }
+  }
+}
