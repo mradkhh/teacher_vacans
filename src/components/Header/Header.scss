@@ -1,6 +1,9 @@
 #header {
+  position: sticky;
+  inset: 0 0 0 auto;
   padding-block: 4px;
   box-shadow: var(--shadow);
+  background-color: var(--white);
 
   .header {
     gap: 56px;
@@ -16,7 +19,6 @@
             font-size: 14px;
             line-height: 130%;
             text-transform: uppercase;
-            // color: #26292e;
           }
         }
       }

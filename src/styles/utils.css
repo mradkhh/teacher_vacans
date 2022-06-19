@@ -2,7 +2,6 @@
   max-width: 1192px;
   padding-inline: 2rem;
   margin-inline: auto;
-
 }
 @media (max-width: 960px) {
   .wrapper {
