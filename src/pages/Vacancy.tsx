@@ -11,39 +11,43 @@ const Vacancy: FC = () => {
          <div className="vacancyLongInfo">
            <div className="vacancyLongInfo__header flex">
              <div className="vacancyLongInfo__headerInfo">
-              <h2>Бош мутахассис</h2>
-              <div className='vacancyLongInfo__headerInfoSubtitle flex-start'>
-                <svg width={16} height={16} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 14V17M12 14V17M16 14V17M3 21H21M3 10H21M3 7L12 3L21 7H3ZM4 10H20V21H4V10Z" stroke="#1B53F4" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                Ховос туман ҳокимияти
-              </div>
-              <div className='vacancyLongInfo__headerInfoItem'>
-                <span>Манзил</span>
-                <h5>Сирдарё вилояти, Ховос тумани</h5>
-              </div>
-              <div className='vacancyLongInfo__headerInfoItem'>
-                <span>Телефон рақам</span>
-                <h5>67-364-65-34</h5>
-              </div>
-              <div className='vacancyLongInfo__headerInfoItem'>
-                <span>Электрон почта</span>
-                <h5>adkhambekyusupov@gmail.com</h5>
-              </div>
-             </div>
-             <div className="vacancyLongInfo__headerDetail flex-start">
-               <div className='flex-start'>
-                  <svg width={13} height={13} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 5V1M14 5V1M5 9H15M3 19H17C17.5304 19 18.0391 18.7893 18.4142 18.4142C18.7893 18.0391 19 17.5304 19 17V5C19 4.46957 18.7893 3.96086 18.4142 3.58579C18.0391 3.21071 17.5304 3 17 3H3C2.46957 3 1.96086 3.21071 1.58579 3.58579C1.21071 3.96086 1 4.46957 1 5V17C1 17.5304 1.21071 18.0391 1.58579 18.4142C1.96086 18.7893 2.46957 19 3 19Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+               <div className="vacancyLongInfo__headerInfo-head">
+                <h2>Нуробод тумани ҳокимлиги инвестициялар ва ташқи савдо масалалари бўйича бош мутахассиси</h2>
+                <div className='vacancyLongInfo__headerInfoSubtitle flex-start'>
+                  <svg width={16} height={16} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 14V17M12 14V17M16 14V17M3 21H21M3 10H21M3 7L12 3L21 7H3ZM4 10H20V21H4V10Z" stroke="#1B53F4" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  17 июн 2022
+                  Ховос туман ҳокимияти
+                </div>
                </div>
-               <div className='flex-start'>
-                <svg width={16} height={16} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path id="Stroke 1" fillRule="evenodd" clipRule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89108 11.9994 8.89108C13.7454 8.89108 15.1614 10.3061 15.1614 12.0531Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path id="Stroke 3" fillRule="evenodd" clipRule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48888 15.806 4.75089 11.998 4.75089H12.002C8.194 4.75089 4.711 7.48888 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  168
+               <div className="vacancyLongInfo__headerInfo-body">
+                  <div className='vacancyLongInfo__headerInfoItem'>
+                    <span>Манзил</span>
+                    <h5>Ўзбекистон Республикаси, Қорақалпоғистон Республикаси</h5>
+                  </div>
+                  <div className='vacancyLongInfo__headerInfoItem'>
+                    <span>Телефон рақам</span>
+                    <h5>67-364-65-34</h5>
+                  </div>
+                  <div className='vacancyLongInfo__headerInfoItem'>
+                    <span>Электрон почта</span>
+                    <h5>adkhambekyusupov@gmail.com</h5>
+                  </div>
+               </div>
+               <div className="vacancyLongInfo__headerInfo-footer">
+                <div className='flex-start'>
+                    <svg width={13} height={13} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 5V1M14 5V1M5 9H15M3 19H17C17.5304 19 18.0391 18.7893 18.4142 18.4142C18.7893 18.0391 19 17.5304 19 17V5C19 4.46957 18.7893 3.96086 18.4142 3.58579C18.0391 3.21071 17.5304 3 17 3H3C2.46957 3 1.96086 3.21071 1.58579 3.58579C1.21071 3.96086 1 4.46957 1 5V17C1 17.5304 1.21071 18.0391 1.58579 18.4142C1.96086 18.7893 2.46957 19 3 19Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    17 июн 2022
+                </div>
+                <div className='flex-start'>
+                  <svg width={16} height={16} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path id="Stroke 1" fillRule="evenodd" clipRule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89108 11.9994 8.89108C13.7454 8.89108 15.1614 10.3061 15.1614 12.0531Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <path id="Stroke 3" fillRule="evenodd" clipRule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48888 15.806 4.75089 11.998 4.75089H12.002C8.194 4.75089 4.711 7.48888 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    168
+                </div>
                </div>
              </div>
            </div>

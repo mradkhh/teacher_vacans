@@ -33,7 +33,7 @@ const Vacancies: FC = () => {
               </Link>
               <Link to="/vacancy-details">
                 <VacanciesCard
-                    title='Бош мутахассис'
+                    title='Нуробод тумани ҳокимлиги инвестициялар ва ташқи савдо масалалари бўйича бош мутахассиси'
                     price='2 600 348.00'
                     jobType='Тўлиқ'
                     location='Сирдарё вилояти, Ховос тумани'

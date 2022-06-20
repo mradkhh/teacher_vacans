@@ -85,6 +85,10 @@ p {
   color: var(--blue);
 }
 
+ol, ul, dl {
+  margin-bottom: 0;
+}
+
 
 input {
   border: none;

@@ -1,0 +1,42 @@
+#footer {
+  background-color: var(--light);
+
+  .footer-line {
+    height: 1px;
+    background-color: #252a3b12;
+  }
+  .footer {
+    padding: 48px;
+
+
+
+    &Nav {
+      ul {
+        gap: 24px;
+        text-transform: uppercase;      }
+    }
+
+    &Socially {
+      ul {
+        gap: 16px;
+
+        li {
+          &:hover a {
+            path {
+             fill: var(--blue) !important;
+             transition: all 300ms ease;
+           }
+         }
+        }
+      }
+    }
+
+  }
+
+  .copyright {
+    padding-block: 24px;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--gray ) !important;
+  }
+}

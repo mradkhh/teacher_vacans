@@ -10,7 +10,7 @@
         align-items: flex-end;
         border-radius: 16px;
         border: 1px solid var(--light);
-        padding: 16px;
+        padding: 24px;
 
         &Info {
           > h2 {
@@ -35,6 +35,13 @@
              font-weight: 600;
             }
           }
+
+          &-footer {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            gap: 24px;
+          }
         }
 
         &Detail {
@@ -43,11 +50,13 @@
       }
 
       &__body {
-        padding: 16px;
+        padding: 24px;
       }
     }
 
     &ShortInfo {
+      position: sticky;
+      top: 115px;
       max-width: 240px;
       width: 100%;
 

@@ -1,3 +1,4 @@
+import Hero from 'components/Sections/Hero'
 import MainLayout from 'layouts/MainLayout'
 import { FC } from 'react'
 
@@ -5,9 +6,7 @@ import { FC } from 'react'
 const Home: FC = () => {
  return (
    <MainLayout>
-     <div className="wrapper">
-       <h1>HOME</h1>
-     </div>
+     <Hero/>
    </MainLayout>
  )
 }

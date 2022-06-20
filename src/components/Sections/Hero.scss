@@ -1,0 +1,92 @@
+#hero {
+  position: relative;
+  .hero {
+    gap: 48px;
+    &Content {
+      > h1 {
+        max-width: 600px;
+      }
+
+      > p {
+        margin-bottom: 0;
+        a {
+          font-size: 20px;
+        }
+      }
+
+    }
+
+    &Footer {
+      box-shadow: var(--shadow);
+      position: absolute;
+      margin-inline: auto;
+      max-width: 850px;
+      width: 100%;
+      background-color: var(--light);
+      border-radius: 16px;
+      padding: 16px;
+      inset: auto auto -35px 50%;
+      transform: translateX(-50%);
+
+      &__searchField {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        border-radius: 14px;
+        padding: 6px;
+        position: relative;
+        background-color: var(--white);
+        margin-bottom: 8px;
+
+        > svg {
+          position: absolute;
+          left: 20px;
+        }
+
+        > input {
+          width: 100%;
+          padding-inline: 48px;
+          font-weight: 600;
+        }
+
+        > button {
+          min-width: max-content;
+        }
+      }
+
+      &__vacancyInfo {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 12px;
+        @media (min-width: 480px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        @media (min-width: 960px) {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 6px;
+        }
+
+
+        &-card {
+          padding: 8px;
+          border-radius: 8px;
+          background-color: var(--white);
+
+
+          &Text {
+
+
+            > h6 {
+              font-size: 12px;
+            }
+
+            > span {
+              font-weight: 600;
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

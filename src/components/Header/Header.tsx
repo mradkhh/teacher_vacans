@@ -16,7 +16,7 @@ const Header: FC = () => {
              <li><NavLink to="/docs">Xujjatlar</NavLink></li>
            </ul>
          </nav>
-         <button datatype='blue'>Kabinetga kirish</button>
+         <button datatype='blue'>Кабинетга кириш</button>
        </div>
      </div>
    </section>

@@ -1,0 +1,66 @@
+#sign {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--light);
+  .sign {
+    background-color: var(--white);
+    border-radius: 16px;
+
+    &Form {
+      padding: 48px;
+
+      &__field {
+        display: flex;
+        justify-content: start;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+
+        > input,
+          &Password > input
+        {
+          width: 100%;
+          padding: 12px 16px;
+          border-radius: 16px;
+          font-weight: 400;
+          font-size: 18px;
+          color: var(--dark-blue);
+          background-color: var(--light);
+
+          &::placeholder {
+            color: var(--gray);
+          }
+        }
+
+        &Password {
+          position: relative;
+          width: 100%;
+          > svg {
+            cursor: pointer;
+            position: absolute;
+            top: 12px;
+            right: 15px;
+          }
+        }
+
+        > a {
+          color: var(--blue);
+          margin-bottom: 12px;
+          margin-left: auto;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        > button {
+          width: 100%;
+          padding-block: 16px;
+        }
+      }
+    }
+  }
+}
