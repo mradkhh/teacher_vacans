@@ -25,7 +25,7 @@
       background-color: var(--light);
       border-radius: 16px;
       padding: 16px;
-      inset: auto auto -35px 50%;
+      inset: auto auto -40px 50%;
       transform: translateX(-50%);
 
       &__searchField {
@@ -68,7 +68,7 @@
 
 
         &-card {
-          padding: 8px;
+          padding: 10px;
           border-radius: 8px;
           background-color: var(--white);
 

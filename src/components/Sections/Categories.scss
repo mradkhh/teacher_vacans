@@ -1,0 +1,18 @@
+#categories {
+  padding-block: 70px;
+  background-color: var(--light);
+  .categories {
+    margin-top: 160px;
+
+    > h2, p {
+      text-align: center;
+    }
+
+    &Segmented {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+  }
+}

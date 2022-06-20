@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Pagination } from 'antd';
 import VacanciesCard from 'components/Cards/VacanciesCard'
 import MainLayout from 'layouts/MainLayout'
@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom'
 
 
 const Vacancies: FC = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
  return (
    <MainLayout>
      <section id="vacancies">

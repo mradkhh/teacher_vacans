@@ -1,8 +1,12 @@
 import MainLayout from 'layouts/MainLayout'
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import 'styles/pages/Vacancy.scss'
 
 const Vacancy: FC = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
  return (
    <MainLayout>
      <section id="vacancy">
