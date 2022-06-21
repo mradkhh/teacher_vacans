@@ -1,18 +1,27 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Pagination } from 'antd';
 import VacanciesCard from 'components/Cards/VacanciesCard'
 import MainLayout from 'layouts/MainLayout'
 import 'styles/pages/Vacancies.scss'
 import { Link } from 'react-router-dom'
+import Loader from 'components/UI/LoaderUI';
 
 
 const Vacancies: FC = () => {
+  const [ loader, setLoader ] = useState(true)
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false)
+    }, 1000)
+  })
  return (
-   <MainLayout>
+   loader ? <Loader/> : <MainLayout>
      <section id="vacancies">
        <div className="wrapper">
         <h2 className="vacancies__title">ВАКАНСИЯЛАР СОНИ: 2387</h2>

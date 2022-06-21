@@ -11,6 +11,8 @@
 
     &Form {
       padding: 48px;
+      max-width: 500px;
+      width: 100%;
 
       &__field {
         display: flex;
@@ -20,8 +22,7 @@
         gap: 8px;
 
         > input,
-          &Password > input
-        {
+          &Password > input {
           width: 100%;
           padding: 12px 16px;
           border-radius: 16px;

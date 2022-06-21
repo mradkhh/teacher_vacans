@@ -89,6 +89,12 @@ ol, ul, dl {
   margin-bottom: 0;
 }
 
+.line {
+  height: 1px;
+  background-color: var(--light);
+  margin-block: 12px;
+}
+
 
 input {
   border: none;
@@ -124,8 +130,4 @@ button[datatype='blue'] {
   .md-min-none {
     display: none;
   }
-}
-
-.ant-pagination {
-
 }

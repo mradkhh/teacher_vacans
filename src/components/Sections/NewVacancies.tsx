@@ -1,7 +1,7 @@
 import VacancyCard from 'components/Cards/VacancyCard'
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
-import './NewVacancies.scss'
+import './styles/NewVacancies.scss'
 
 
 const NewVacancies: FC = () => {

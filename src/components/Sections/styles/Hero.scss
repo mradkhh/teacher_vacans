@@ -1,5 +1,6 @@
 #hero {
   position: relative;
+  margin-top: 40px;
   .hero {
     gap: 48px;
     &Content {
@@ -36,7 +37,6 @@
         padding: 6px;
         position: relative;
         background-color: var(--white);
-        margin-bottom: 8px;
 
         > svg {
           position: absolute;
@@ -54,39 +54,6 @@
         }
       }
 
-      &__vacancyInfo {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        grid-gap: 12px;
-        @media (min-width: 480px) {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        @media (min-width: 960px) {
-          grid-template-columns: repeat(4, 1fr);
-          gap: 6px;
-        }
-
-
-        &-card {
-          padding: 10px;
-          border-radius: 8px;
-          background-color: var(--white);
-
-
-          &Text {
-
-
-            > h6 {
-              font-size: 12px;
-            }
-
-            > span {
-              font-weight: 600;
-              font-size: 20px;
-            }
-          }
-        }
-      }
     }
   }
 }

@@ -1,9 +1,22 @@
-import { FC } from 'react'
+import Modal from 'components/Modals/Modal'
+import { FC, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { isSetToken } from 'utils/tokenStorage'
 import './Header.scss'
 const Header: FC = () => {
+
+  const [ showModal, setShowModal ] = useState(false)
+
+  const handleClick = () => {
+    setShowModal(!showModal)
+  }
  return (
    <section id="header">
+     <Modal
+      state={showModal}
+      setState={setShowModal}
+      type='signIn'
+     />
      <div className="wrapper">
        <div className="header flex">
          <div className="header__logo">
@@ -16,7 +29,7 @@ const Header: FC = () => {
              <li><NavLink to="/docs">Xujjatlar</NavLink></li>
            </ul>
          </nav>
-         <button datatype='blue'>Кабинетга кириш</button>
+         { isSetToken() ? <h1>Token bor</h1> : <button onClick={handleClick} datatype='blue'>Кабинетга кириш</button> }
        </div>
      </div>
    </section>

@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-import './VacancyCard.scss'
+import { FC } from 'react'
+import './styles/VacancyCard.scss'
 
 type VacancyCardProps = {
  title: string,

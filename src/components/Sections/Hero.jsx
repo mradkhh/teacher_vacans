@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import heroImg from 'static/images/hero.png'
-import  './Hero.scss'
+import  './styles/Hero.scss'
 
 const Hero = () => {
  return (
@@ -24,7 +24,6 @@ const Hero = () => {
           <input type="text" placeholder='Излаш'/>
           <button datatype='blue'>Вакансия излаш</button>
         </div>
-       
       </div>
     </div>
   </section>

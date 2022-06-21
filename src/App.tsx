@@ -9,6 +9,7 @@ import './styles/design_token.css'
 import './styles/utils.css'
 import './styles/global.scss'
 import Sign from 'pages/Sign';
+import Docs from 'pages/Docs';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/vacancies' element={<Vacancies/>}/>
         <Route path='/vacancy-details' element={<Vacancy/>}/>
         <Route path='/sign-in/form' element={<Sign/>}/>
+        <Route path='/docs' element={<Docs/>}/>
       </Routes>
     </BrowserRouter>
   );
