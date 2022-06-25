@@ -1,8 +1,9 @@
 import PasswordInput from 'components/Inputs/PasswordInput'
 import PhoneInput from 'components/Inputs/PhoneInput'
 import SegmentedUI2 from 'components/UI/SegmentedUI2'
-import { FC, useState } from 'react'
+import { FC,  useState } from 'react'
 import { Link } from 'react-router-dom'
+import Axios from 'utils/httpsClient'
 import './styles/Modal.scss'
 
 type ModalProps = {
@@ -13,6 +14,8 @@ type ModalProps = {
 
 const Modal: FC<ModalProps> = ({ setState, state, type }) => {
   const [ phoneValue, setPhoneValue ] = useState('')
+  const [ passwordValue, setPasswordValue ] = useState('')
+  const filteredPhone = phoneValue.replace(/ /g,'')
   type eventType = {
     target: {},
     currentTarget: {}
@@ -25,6 +28,20 @@ const Modal: FC<ModalProps> = ({ setState, state, type }) => {
   const handleButtonClick = (e: any) => {
     setState(false)
   }
+
+  const submit = (e: any) => {
+    e.preventDefault()
+    Axios()
+      .get('me/', {
+        phone: filteredPhone,
+        password: passwordValue
+      })
+      .then((res: any) => {
+        console.log(res)
+      })
+      .catch((err: any) => console.log(err))
+  }
+
  return (
   state ? <div
             onClick={handleClick}
@@ -43,19 +60,22 @@ const Modal: FC<ModalProps> = ({ setState, state, type }) => {
               <div className="line"></div>
                  <SegmentedUI2/>
               <div className="ModalContent__body">
-                 <form className="ModalContent__bodyForm">
+                 <form onSubmit={submit} className="ModalContent__bodyForm">
                     <label htmlFor="phone">Телефон рақам</label>
                     <PhoneInput
                         phoneValue={phoneValue}
                         setPhoneValue={setPhoneValue}
                       />
                     <label htmlFor="password">Парол</label>
-                    <PasswordInput/>
+                    <PasswordInput
+                      state={passwordValue}
+                      setState={setPasswordValue}
+                    />
                     <div className="more">
                         <Link to="/sign-in/form">Парол есдан чиқдими?</Link>
                         <Link to="/sign-in/form">Рўйхатдан ўтиш</Link>
                     </div>
-                    <button datatype='blue'>КИРИШ</button>
+                    <button type='submit' datatype='blue'>КИРИШ</button>
                  </form>
               </div>
               <div className="line"></div>

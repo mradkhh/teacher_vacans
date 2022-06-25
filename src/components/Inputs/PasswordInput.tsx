@@ -1,15 +1,24 @@
 import { FC, useState } from 'react'
 import './styles/PasswordInput.scss'
 
-const PasswordInput: FC = () => {
+type stateProps = {
+  state: string,
+  setState: (arg: any) => void
+}
+
+const PasswordInput: FC<stateProps> = ({ state, setState }) => {
   const [ password, setPassword ] = useState(true)
 
   const handlePassword = () => {
     setPassword(!password)
   }
+
+  const handleChange = (e: any) => {
+    setState(e.target.value)
+  }
  return (
   <div className="passwordInput__field">
-      <input type={password ? 'password' : 'text'} placeholder='Pasword'/>
+      <input type={password ? 'password' : 'text'} value={state} onChange={handleChange} placeholder='Pasword'/>
       <svg
         onClick={handlePassword}
       width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -15,7 +15,7 @@ axios.interceptors.response.use(
 			// 	window.location.href = '/';
 			// }
 			if (error?.message === 'Network Error') {
-
+				console.log("enternet yo'q")
 			}
 			if (process.env.NODE_ENV === 'development') {
 				console.log(error);
@@ -30,7 +30,7 @@ const Axios = () => {
 	const defaultOptions = {
 		baseURL: API_URL,
 		headers: token ? { Authorization: `Bearer ${token}` } : {},
-		params: { language: localStorage.getItem('i18nextLng') || 'uz', }
+		// params: { language: localStorage.getItem('i18nextLng') || 'uz', }
 	};
 
 	return {

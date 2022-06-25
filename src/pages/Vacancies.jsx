@@ -1,17 +1,25 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Pagination } from 'antd';
 import VacanciesCard from 'components/Cards/VacanciesCard'
 import MainLayout from 'layouts/MainLayout'
 import 'styles/pages/Vacancies.scss'
 import { Link } from 'react-router-dom'
 import Loader from 'components/UI/LoaderUI';
+import Axios from 'utils/httpsClient'
 
 
-const Vacancies: FC = () => {
+const Vacancies = () => {
   const [ loader, setLoader ] = useState(true)
 
   useEffect(() => {
     window.scrollTo(0, 0)
+
+    Axios()
+      .get('vacancy/')
+      .then((res) => {
+        console.log(res)
+      })
+      .catch(err => console.log(err))
   }, [])
 
 
