@@ -1,5 +1,4 @@
 import About from 'components/Sections/About'
-import Categories from 'components/Sections/Categories'
 import Hero from 'components/Sections/Hero'
 import NewVacancies from 'components/Sections/NewVacancies'
 import Loader from 'components/UI/LoaderUI'
@@ -14,13 +13,12 @@ const Home: FC = () => {
       setLoader(false)
     }, 1000)
   })
- return (
+ return ( 
    loader
     ? <Loader/>
     : <MainLayout>
         <Hero/>
         <About/>
-        {/* <Categories/> */}
         <NewVacancies/>
       </MainLayout>
  )
