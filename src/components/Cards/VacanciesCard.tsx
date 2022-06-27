@@ -17,16 +17,15 @@ type VacanciesCardProps = {
 
 const cardVariants: Variants = {
   offscreen: {
-    y: 200,
+    y: 250,
     opacity: 0
   },
   onscreen: {
-    y: 50,
+    y: 0,
     opacity: 1,
     transition: {
       type: "spring",
-      bounce: 0.4,
-      duration: 0.8
+      duration: 0.4
     }
   }
 };
@@ -37,7 +36,7 @@ const VacanciesCard: FC<VacanciesCardProps> = ({title, company, phone, price, lo
    <motion.div
     initial="offscreen"
     whileInView="onscreen"
-    viewport={{ once: true, amount: 1 }}
+    viewport={{ once: true, amount: 0.5 }}
     >
     <motion.div
     variants={cardVariants}
