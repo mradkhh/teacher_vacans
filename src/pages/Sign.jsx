@@ -1,6 +1,7 @@
 import PhoneInput from 'components/Inputs/PhoneInput'
 import SegmentedUI2 from 'components/UI/SegmentedUI2'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import signImg from 'static/images/sign.png'
 import 'styles/pages/Sign.scss'
 
@@ -17,6 +18,7 @@ const Sign = () => {
      <div className="wrapper flex">
        <div className="sign flex">
          <div className="signForm">
+            <Link to="/">Qaytish</Link>
            <h1>Kноw релеасе дате фор оур wебсите?</h1>
            <p>Сигнуп то реcеиве упдатес ноw.</p>
            <SegmentedUI2/>

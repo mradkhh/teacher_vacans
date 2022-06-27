@@ -1,5 +1,4 @@
 #hero {
-  position: relative;
   margin-top: 40px;
   .hero {
     gap: 48px;
@@ -12,45 +11,6 @@
         margin-bottom: 0;
         a {
           font-size: 20px;
-        }
-      }
-
-    }
-
-    &Footer {
-      box-shadow: var(--shadow);
-      position: absolute;
-      margin-inline: auto;
-      max-width: 850px;
-      width: 100%;
-      background-color: var(--light);
-      border-radius: 16px;
-      padding: 16px;
-      inset: auto auto -40px 50%;
-      transform: translateX(-50%);
-
-      &__searchField {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        border-radius: 14px;
-        padding: 6px;
-        position: relative;
-        background-color: var(--white);
-
-        > svg {
-          position: absolute;
-          left: 20px;
-        }
-
-        > input {
-          width: 100%;
-          padding-inline: 48px;
-          font-weight: 600;
-        }
-
-        > button {
-          min-width: max-content;
         }
       }
 

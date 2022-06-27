@@ -1,7 +1,13 @@
 #about {
+  position: relative;
   background-color: var(--light);
   padding-block: 80px;
   padding-top: 90px;
+
+  .searchInput {
+    position: absolute;
+    top: -40px;
+  }
 
   .about {
     display: flex;

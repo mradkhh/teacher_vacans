@@ -1,9 +1,11 @@
+import SearchInput from 'components/Inputs/SeachInput'
 import { FC } from 'react'
 import './styles/About.scss'
 
 const About: FC = () => {
  return (
   <section id="about">
+    <SearchInput/>
     <div className="wrapper">
       <div className="about">
         <div className="aboutGrid">

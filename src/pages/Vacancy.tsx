@@ -1,23 +1,17 @@
-import Loader from 'components/UI/LoaderUI'
 import MainLayout from 'layouts/MainLayout'
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 import 'styles/pages/Vacancy.scss'
 
 const Vacancy: FC = () => {
-  const [ loader, setLoader ] = useState(true)
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoader(false)
-    }, 1000)
-  })
+
  return (
-   loader ? <Loader/> : <MainLayout>
+   <MainLayout>
      <section id="vacancy">
      <div className="wrapper">
        <div className="vacancy flex-start">

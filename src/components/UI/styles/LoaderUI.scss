@@ -1,11 +1,17 @@
 .loaderWrapper {
+  overflow: hidden;
     position: absolute;
     display: block;
     background-color: var(--white);
-    inset: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgba(0, 0, 0, 0.412);
+    z-index: 1234;
+    animation: fade 1s linear;
 
     .loader{
       width: 50px;
@@ -47,5 +53,17 @@
   }
   75% {
     transform: scale(1);
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: .8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

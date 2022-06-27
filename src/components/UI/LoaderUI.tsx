@@ -7,4 +7,5 @@ const LoaderUI: FC = () => {
   </div>
  )
 }
+
 export default LoaderUI
