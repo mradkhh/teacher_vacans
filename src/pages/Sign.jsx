@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import signImg from 'static/images/sign.png'
 import 'styles/pages/Sign.scss'
 
-
 const Sign = () => {
   const [ password, setPassword ] = useState(true)
   const [ phoneValue, setPhoneValue ] = useState('')

@@ -5,8 +5,8 @@ import './styles/About.scss'
 const About: FC = () => {
  return (
   <section id="about">
-    <SearchInput/>
     <div className="wrapper">
+    <SearchInput/>
       <div className="about">
         <div className="aboutGrid">
           <div className="aboutGrid__item">

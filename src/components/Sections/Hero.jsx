@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import heroImg from 'static/images/hero.png'
 import  './styles/Hero.scss'
@@ -16,7 +15,7 @@ const Hero = () => {
             <p><Link to="/vacancies">14 044</Link>  дан ортиқ бўш иш ўринлари</p>
         </div>
       </div>
-   
+
     </div>
   </section>
  )

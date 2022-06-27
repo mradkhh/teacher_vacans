@@ -7,13 +7,20 @@
   }
   .footer {
     padding: 48px;
-
+    @media (max-width: 767.98px) {
+      flex-direction: column;
+      gap: 50px;
+    }
 
 
     &Nav {
       ul {
         gap: 24px;
-        text-transform: uppercase;      }
+        text-transform: uppercase;
+        @media (max-width: 480px) {
+          flex-direction: column;
+        }
+      }
     }
 
     &Socially {

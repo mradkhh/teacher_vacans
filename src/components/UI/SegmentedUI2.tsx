@@ -8,8 +8,8 @@ const SegmentedUI2: FC = () => {
             <div className="segmented2">
               <input type="radio" name="flight-type" defaultValue="coach" id="coach" defaultChecked/>
               <label htmlFor="coach">Иш изловчи</label>
-              <input type="radio" name="flight-type" defaultValue="business" id="business"/>
-              <label htmlFor="business">Иш берувчи</label>
+              <input disabled type="radio" name="flight-type" defaultValue="business" id="business"/>
+              <label title='Tez orada' htmlFor="business">Иш берувчи</label>
             </div>
           </div>
       </div>

@@ -72,17 +72,12 @@ const Modal: FC<ModalProps> = ({ setState, state, type }) => {
                       setState={setPasswordValue}
                     />
                     <div className="more">
-                        <Link to="/sign-in/form">Парол есдан чиқдими?</Link>
                         <Link to="/sign-in/form">Рўйхатдан ўтиш</Link>
                     </div>
                     <button type='submit' datatype='blue'>КИРИШ</button>
                  </form>
               </div>
               <div className="line"></div>
-              <div className="ModalContent__footer">
-                <h4>Хали рўйхатдан ўтмадингизми:</h4>
-
-              </div>
             </div>
           </div>
         : <></>

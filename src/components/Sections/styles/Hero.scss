@@ -1,8 +1,23 @@
 #hero {
   margin-top: 40px;
+  @media (max-width: 900px) {
+    margin-top: 60px;
+  }
   .hero {
     gap: 48px;
+    @media (max-width: 900px) {
+      margin-bottom: 130px;
+    }
+
+    &Img {
+      @media (max-width: 900px) {
+        display: none;
+      }
+    }
     &Content {
+      @media (max-width: 567.98px) {
+        text-align: center;
+      }
       > h1 {
         max-width: 600px;
       }

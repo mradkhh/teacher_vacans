@@ -27,9 +27,9 @@ const Vacancies = () => {
        <div className="wrapper">
         <h2 className="vacancies__title">ВАКАНСИЯЛАР СОНИ: 2387</h2>
          <div className="vacancies flex">
-           <div className="vacanciesCategory">
+           {/* <div className="vacanciesCategory">
              <h1>cate</h1>
-           </div>
+           </div> */}
            <div className="vacanciesItems">
               <Link to="/vacancy-details">
                 <VacanciesCard
