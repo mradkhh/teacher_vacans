@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { motion, Variants } from "framer-motion";
 import './styles/VacancyCard.scss'
 
 type VacancyCardProps = {
@@ -8,9 +9,32 @@ type VacancyCardProps = {
  company: string,
 }
 
+const cardVariants: Variants = {
+  offscreen: {
+    y: 250,
+    opacity: 0
+  },
+  onscreen: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      duration: 0.4
+    }
+  }
+};
+
 const VacancyCard: FC<VacancyCardProps> = ({title, location, price, company}) => {
+
  return (
-   <div className="vacancyCard">
+   <motion.div
+    initial="offscreen"
+    whileInView="onscreen"
+    viewport={{ once: true, amount: 0.5 }}
+    >
+    <motion.div
+    variants={cardVariants}
+    className="vacancyCard">
      <h3>{title}</h3>
      <p>{company}</p>
      <span className='flex-start'>
@@ -27,7 +51,8 @@ const VacancyCard: FC<VacancyCardProps> = ({title, location, price, company}) =>
             <path d="M14.1213 13.1213C14.6839 12.5587 15 11.7956 15 11C15 10.2044 14.6839 9.44129 14.1213 8.87868C13.5587 8.31607 12.7956 8 12 8C11.2044 8 10.4413 8.31607 9.87868 8.87868C9.31607 9.44129 9 10.2044 9 11C9 11.7956 9.31607 12.5587 9.87868 13.1213C10.4413 13.6839 11.2044 14 12 14C12.7956 14 13.5587 13.6839 14.1213 13.1213Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
        {location}</div>
-   </div>
+   </motion.div>
+   </motion.div>
  )
 }
 export default VacancyCard
