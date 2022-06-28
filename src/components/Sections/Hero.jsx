@@ -1,8 +1,13 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import heroImg from 'static/images/hero.png'
 import  './styles/Hero.scss'
 
 const Hero = () => {
+
+  useState(() => {
+    window.scrollTo(0,0)
+  })
  return (
   <section id="hero">
     <div className="wrapper">

@@ -1,8 +1,24 @@
-import MainLayout from 'layouts/MainLayout'
 import { FC, useEffect } from 'react'
+import MainLayout from 'layouts/MainLayout'
+import { motion, Variants } from "framer-motion";
 import 'styles/pages/Vacancy.scss'
 
 const Vacancy: FC = () => {
+
+  const cardVariants: Variants = {
+    offscreen: {
+      y: 250,
+      opacity: 0
+    },
+    onscreen: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        duration: 0.4
+      }
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -74,7 +90,7 @@ const Vacancy: FC = () => {
            </div>
          </div>
          <ul className="vacancyShortInfo">
-         <li className='vacancyShortInfo-item flex-start'>
+              <li className='vacancyShortInfo-item flex-start'>
                 <span>
                   <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g id="Iconly/Light/Wallet">
