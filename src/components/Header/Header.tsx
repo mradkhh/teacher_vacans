@@ -35,10 +35,7 @@ const Header: FC = () => {
            <ul className='flex header__mobile-nav-links'>
              <li><NavLink to="/">АСОСИЙ</NavLink></li>
              <li><NavLink to="/vacancies">ВАКАНСИЯЛАР</NavLink></li>
-             <li><NavLink to="/docs">Xujjatlar</NavLink></li>
            </ul>
-
-           
          </nav>
       </Drawer>
      <div className="wrapper">
@@ -50,7 +47,6 @@ const Header: FC = () => {
            <ul className='flex header__nav-links'>
              <li><NavLink to="/">АСОСИЙ</NavLink></li>
              <li><NavLink to="/vacancies">ВАКАНСИЯЛАР</NavLink></li>
-             <li><NavLink to="/docs">Xujjatlar</NavLink></li>
            </ul>
          </nav>
          { isSetToken() ? <h1>Token bor</h1> : <button className='btn-cabinet' onClick={handleClick} datatype='blue'>Кабинетга кириш</button> }

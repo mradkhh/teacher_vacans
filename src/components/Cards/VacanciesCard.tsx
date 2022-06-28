@@ -17,7 +17,7 @@ type VacanciesCardProps = {
 
 const cardVariants: Variants = {
   offscreen: {
-    y: 250,
+    y: 280,
     opacity: 0
   },
   onscreen: {

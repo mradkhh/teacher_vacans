@@ -19,7 +19,6 @@ function App() {
         <Route path='/vacancies' element={<Vacancies/>}/>
         <Route path='/vacancy-details' element={<Vacancy/>}/>
         <Route path='/sign-in/form' element={<Sign/>}/>
-        <Route path='/docs' element={<Docs/>}/>
       </Routes>
     </BrowserRouter>
   );
