@@ -3,7 +3,6 @@ import PhoneInput from 'components/Inputs/PhoneInput'
 import SegmentedUI2 from 'components/UI/SegmentedUI2'
 import { FC,  useState } from 'react'
 import { Link } from 'react-router-dom'
-import Axios from 'utils/httpsClient'
 import './styles/Modal.scss'
 
 type ModalProps = {
@@ -31,15 +30,7 @@ const Modal: FC<ModalProps> = ({ setState, state, type }) => {
 
   const submit = (e: any) => {
     e.preventDefault()
-    Axios()
-      .get('me/', {
-        phone: filteredPhone,
-        password: passwordValue
-      })
-      .then((res: any) => {
-        console.log(res)
-      })
-      .catch((err: any) => console.log(err))
+
   }
 
  return (

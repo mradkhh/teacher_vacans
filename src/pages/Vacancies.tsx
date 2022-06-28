@@ -3,23 +3,18 @@ import { Pagination } from 'antd';
 import VacanciesCard from 'components/Cards/VacanciesCard'
 import MainLayout from 'layouts/MainLayout'
 import 'styles/pages/Vacancies.scss'
-import { Link } from 'react-router-dom'
-import { AxiosError, AxiosResponse } from 'axios';
-import Axios from 'utils/httpsClient'
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import Requests from 'utils/axiosconfig';
 
 
 const Vacancies = () => {
-
-
   useEffect(() => {
     window.scrollTo(0, 0)
-
-    Axios()
-      .get('vacancy/')
-      .then((res: AxiosResponse) => {
-        console.log(res)
+    Requests.get()
+      .then((data) => {
+        console.log(data)
       })
-      .catch((err: AxiosError) => console.log(err))
+      .catch(err => console.error(err))
   }, [])
 
 

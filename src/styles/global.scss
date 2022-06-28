@@ -121,6 +121,16 @@ button[datatype='blue'] {
   }
 }
 
+
+// Button press effect
+button {
+  transition: all 0.2s;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
 ::-webkit-scrollbar {
   width: 4px;
 }

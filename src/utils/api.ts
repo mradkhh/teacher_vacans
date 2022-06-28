@@ -1,3 +1,3 @@
-export const API_HOST = '127.0.0.1:8000'
+export const API_HOST = 'api.vacancy.exadot.io'
 
-export const API_URL = `http://${API_HOST}/api/v1/`;
+export const API_URL = `https://${API_HOST}/api/v1/`;
