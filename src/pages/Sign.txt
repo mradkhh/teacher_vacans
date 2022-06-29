@@ -1,28 +1,27 @@
 import PhoneInput from 'components/Inputs/PhoneInput'
 import SegmentedUI2 from 'components/UI/SegmentedUI2'
 import Spiner from 'components/UI/Spiner'
-import { FormEvent, useEffect, useState } from 'react'
-import { getToken, setToken } from 'utils/tokenStorage'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import signImg from 'static/images/sign.png'
 import 'styles/pages/Sign.scss'
-import Axios from 'utils/axiosconfig'
+import Axios from 'utils/httpsClient'
 
 const Sign = () => {
-  const [ password, setPassword ] = useState<boolean>(true)
-  const [ passwordValue1, setPasswordValue1 ] = useState<string>('')
-  const [ passwordValue2, setPasswordValue2 ] = useState<string>('')
+  const [ password, setPassword ] = useState(true)
+  const [ passwordValue1, setPasswordValue1 ] = useState('')
+  const [ passwordValue2, setPasswordValue2 ] = useState('')
   const [ phoneValue, setPhoneValue ] = useState('')
-  const [ pending, setPending ] = useState<boolean>(false)
-  const [ success, setSuccess ] = useState<boolean>(false)
-  const navigate = useNavigate()
+  const [ pending, setPending ] = useState(false)
+  const [ success, setSuccess ] = useState(false)
+
   const filteredPhone = phoneValue.replace(/ /g,'').replace(/_/g, '')
 
   const handlePassword = () => {
     setPassword(!password)
   }
 
-  const isValid = (phone: string, password1: string, password2: string) => {
+  const isValid = (phone, password1, password2) => {
     if (!phone && !password1) {
       return false
     }
@@ -42,12 +41,11 @@ const Sign = () => {
   console.log(validate)
 
 
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    setPending(true)
     if (validate) {
-      Axios.post('register/',{
+      setPending(true)
+      Axios.post("register/",{
         phone: filteredPhone,
         password: passwordValue1,
         confirm_password: passwordValue2
@@ -55,18 +53,14 @@ const Sign = () => {
       .then((data) => {
         console.log(data)
         if (data) {
-          setToken(data?.access);
           setPending(false)
           setSuccess(true)
-          console.log(success)
         }
       })
       .catch(err => console.error("Register error: ", err))
     }
-    setPending(false)
+
   }
-
-
 
 
  return (

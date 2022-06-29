@@ -1,15 +1,15 @@
 import Modal from 'components/Modals/Modal'
 import { FC, useState } from 'react'
-import type { DrawerProps, RadioChangeEvent } from 'antd';
 import { Drawer } from 'antd';
 import { NavLink } from 'react-router-dom'
 import { isSetToken } from 'utils/tokenStorage'
 import './Header.scss'
 import './hamburger.scss'
+import Profile from 'components/DropDown/Profile';
 const Header: FC = () => {
-  const [ toggleNav, setToggleNav ] = useState(false)
-  const [ showModal, setShowModal ] = useState(false)
-  const [visible, setVisible] = useState(false);
+  const [ toggleNav, setToggleNav ] = useState<boolean>(false)
+  const [ showModal, setShowModal ] = useState<boolean>(false)
+  const [visible, setVisible] = useState<boolean>(false);
 
   const handleClick = () => {
     setShowModal(!showModal)
@@ -28,7 +28,6 @@ const Header: FC = () => {
      <Modal
       state={showModal}
       setState={setShowModal}
-      type='signIn'
      />
       <Drawer title="Basic Drawer" placement="left" onClose={onClose} visible={visible}>
         <nav className="header__mobile-nav">
@@ -49,7 +48,7 @@ const Header: FC = () => {
              <li><NavLink to="/vacancies">ВАКАНСИЯЛАР</NavLink></li>
            </ul>
          </nav>
-         { isSetToken() ? <h1>Token bor</h1> : <button className='btn-cabinet' onClick={handleClick} datatype='blue'>Кабинетга кириш</button> }
+         { isSetToken() ? <Profile/> : <button className='btn-cabinet' onClick={handleClick} datatype='blue'>Кабинетга кириш</button> }
          <button
             onClick={showDrawer}
             className={`mobile-btn hamburger hamburger--slider ${toggleNav ? 'is-active' : ''}`}

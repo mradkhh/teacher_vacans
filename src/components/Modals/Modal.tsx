@@ -1,20 +1,25 @@
 import PasswordInput from 'components/Inputs/PasswordInput'
 import PhoneInput from 'components/Inputs/PhoneInput'
 import SegmentedUI2 from 'components/UI/SegmentedUI2'
-import { FC,  useState } from 'react'
-import { Link } from 'react-router-dom'
+import { FC,  FormEvent,  useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import Axios from 'utils/axiosconfig'
+import { getToken, setToken } from 'utils/tokenStorage'
 import './styles/Modal.scss'
 
 type ModalProps = {
-  type: string,
   state: boolean,
   setState: (arg: boolean) => void
 }
 
-const Modal: FC<ModalProps> = ({ setState, state, type }) => {
-  const [ phoneValue, setPhoneValue ] = useState('')
-  const [ passwordValue, setPasswordValue ] = useState('')
-  const filteredPhone = phoneValue.replace(/ /g,'')
+const Modal: FC<ModalProps> = (props) => {
+  const [ pending, setPending ] = useState<boolean>(false)
+  const [ success, setSuccess ] = useState<boolean>(false)
+  const { setState, state } = props
+  const [ phoneValue, setPhoneValue ] = useState<string>('')
+  const [ passwordValue, setPasswordValue ] = useState<string>('')
+  const filteredPhone = phoneValue.replace(/ /g,'').replace(/_/g, '')
+  const navigate = useNavigate()
   type eventType = {
     target: {},
     currentTarget: {}
@@ -24,13 +29,46 @@ const Modal: FC<ModalProps> = ({ setState, state, type }) => {
     (e.target === e.currentTarget) && setState(false)
   }
 
-  const handleButtonClick = (e: any) => {
+  const handleButtonClick = () => {
     setState(false)
   }
 
-  const submit = (e: any) => {
-    e.preventDefault()
+  const isValid = (phone: string, password: string) => {
+    if (!phone && !password) {
+      return false
+    }
+    if (phone.length !== 9) {
+      return false
+    }
+    if ( password.length < 8 ) {
+      return false
+    }
+    return true
+  }
 
+  const validate = isValid(filteredPhone, passwordValue)
+  console.log(validate)
+
+  const submit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (validate) {
+      setPending(true)
+      Axios.post('me/',{
+        phone: filteredPhone,
+        password: passwordValue
+      })
+      .then((data) => {
+        console.log(data)
+        if (data) {
+          setToken(data?.access)
+          setPending(false)
+          setSuccess(true)
+          if (getToken()) {
+            window.location.reload()
+          }
+        }
+      })
+    }
   }
 
  return (

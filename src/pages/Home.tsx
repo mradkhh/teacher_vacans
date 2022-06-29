@@ -6,8 +6,6 @@ import { FC, useEffect, useState } from 'react'
 
 const Home: FC = () => {
 
-
-
  return (
    <MainLayout>
         <Hero/>

@@ -1,12 +1,29 @@
 import VacancyCard from 'components/Cards/VacancyCard'
-import React, { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Axios from 'utils/axiosconfig'
 import './styles/NewVacancies.scss'
 
 
 const NewVacancies: FC = () => {
+  const [ data, setData ] = useState<any[]>([])
+  const resutData = data.slice(0, 3)
+  console.log(resutData)
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    Axios.get('vacancy/')
+      .then((data) => {
+        console.log(data?.results)
+        setData(data?.results)
+      })
+      .catch(err => console.error(err))
+  }, [])
+
+  const handleClick = () => {
+    window.location.reload()
+  }
  return (
-   <section id="newVacancies">
+   <section onClick={handleClick} id="newVacancies">
      <div className="wrapper">
        <div className="newVacancies">
          <div className="newVacancies__head flex">
@@ -14,55 +31,15 @@ const NewVacancies: FC = () => {
            <Link to="/vacancies">Барча вакансиялар</Link>
          </div>
          <div className="newVacancies__grid">
-           <Link to="/vacancy-details">
-            <VacancyCard
-              title='Бош мутахассис'
-              location='Ўзбекистон Республикаси, Сирдарё вилояти'
-              price='2 019 564.00 UZS'
-              company='Миробод туман давлат солиқ инспекцияси'
-            />
-           </Link>
-           <Link to="/vacancy-details">
-            <VacancyCard
-              title='Бош мутахассис'
-              location='Ўзбекистон Республикаси, Сирдарё вилояти'
-              price='2 019 564.00 UZS'
-              company='Миробод туман давлат солиқ инспекцияси'
-            />
-           </Link>
-           <Link to="/vacancy-details">
-            <VacancyCard
-              title='Бош мутахассис'
-              location='Ўзбекистон Республикаси, Сирдарё вилояти'
-              price='2 019 564.00 UZS'
-              company='Миробод туман давлат солиқ инспекцияси'
-            />
-           </Link>
-           <Link to="/vacancy-details">
-            <VacancyCard
-              title='Бош мутахассис'
-              location='Ўзбекистон Республикаси, Сирдарё вилояти'
-              price='2 019 564.00 UZS'
-              company='Миробод туман давлат солиқ инспекцияси'
-            />
-           </Link>
-           <Link to="/vacancy-details">
-            <VacancyCard
-              title='Бош мутахассис'
-              location='Ўзбекистон Республикаси, Сирдарё вилояти'
-              price='2 019 564.00 UZS'
-              company='Миробод туман давлат солиқ инспекцияси'
-            />
-           </Link>
-           <Link to="/vacancy-details">
-            <VacancyCard
-              title='Бош мутахассис'
-              location='Ўзбекистон Республикаси, Сирдарё вилояти'
-              price='2 019 564.00 UZS'
-              company='Миробод туман давлат солиқ инспекцияси'
-            />
-           </Link>
-
+            {
+              resutData.map(item =>
+                  <Link key={item?.id} to={`/organization/${item?.id}`} >
+                    <VacancyCard
+                      {...item}
+                    />
+                  </Link>
+                )
+            }
          </div>
        </div>
      </div>

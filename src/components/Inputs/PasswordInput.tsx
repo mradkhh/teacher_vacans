@@ -1,19 +1,20 @@
-import { FC, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 import './styles/PasswordInput.scss'
 
 type stateProps = {
-  state: string,
-  setState: (arg: any) => void
+    state: string,
+    setState: (arg: string) => void
 }
 
-const PasswordInput: FC<stateProps> = ({ state, setState }) => {
-  const [ password, setPassword ] = useState(true)
+const PasswordInput: FC<stateProps> = (props) => {
+  const [ password, setPassword ] = useState<boolean>(true)
+  const { state, setState } = props
 
   const handlePassword = () => {
     setPassword(!password)
   }
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setState(e.target.value)
   }
  return (

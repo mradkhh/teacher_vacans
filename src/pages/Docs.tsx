@@ -3,8 +3,7 @@ import MainLayout from 'layouts/MainLayout'
 import { FC } from 'react'
 
 const Docs: FC = () => {
- return (
-   <Loader/>
+ return (   <Loader/>
  )
 }
 export default Docs

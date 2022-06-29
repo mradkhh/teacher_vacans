@@ -30,8 +30,8 @@ const cardVariants: Variants = {
   }
 };
 
-const VacanciesCard: FC<VacanciesCardProps> = ({title, company, phone, price, location, jobType, createDate, deadline, view }) => {
-
+const VacanciesCard: FC<VacanciesCardProps> = (props) => {
+ const {title, company, phone, price, location, jobType, createDate, deadline, view } = props
   return (
    <motion.div
     initial="offscreen"
@@ -41,9 +41,9 @@ const VacanciesCard: FC<VacanciesCardProps> = ({title, company, phone, price, lo
     <motion.div
     variants={cardVariants}
     className="vacanciesCard">
-     <motion.div  className="vacanciesCard__header">
+     <div  className="vacanciesCard__header">
        <h3>{title}</h3>
-     </motion.div>
+     </div>
      <div className="vacanciesCard__line"></div>
      <div className="vacanciesCard__body">
         <div className='flex-start vacanciesCard__body-item'>
@@ -53,7 +53,7 @@ const VacanciesCard: FC<VacanciesCardProps> = ({title, company, phone, price, lo
                 <path id="Stroke 5" fillRule="evenodd" clipRule="evenodd" d="M7.74766 3H16.3911C19.2892 3 21.6388 5.34951 21.6388 8.24766V15.4247C21.6388 18.3229 19.2892 20.6724 16.3911 20.6724H7.74766C4.84951 20.6724 2.5 18.3229 2.5 15.4247V8.24766C2.5 5.34951 4.84951 3 7.74766 3Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 <path id="Stroke 7" d="M7.03564 7.53817H12.4346" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          {price}</div>
+          {price} so'm</div>
         <div className='flex-start vacanciesCard__body-item'>
           <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 14V17M12 14V17M16 14V17M3 21H21M3 10H21M3 7L12 3L21 7H3ZM4 10H20V21H4V10Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -99,7 +99,7 @@ const VacanciesCard: FC<VacanciesCardProps> = ({title, company, phone, price, lo
               </g>
             </g>
           </svg>
-          {view}
+          {view ? view : 0}
         </div>
      </div>
    </motion.div>

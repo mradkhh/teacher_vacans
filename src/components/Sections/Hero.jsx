@@ -7,7 +7,8 @@ const Hero = () => {
 
   useState(() => {
     window.scrollTo(0,0)
-  })
+  }, [])
+
  return (
   <section id="hero">
     <div className="wrapper">

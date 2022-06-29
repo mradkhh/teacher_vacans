@@ -1,14 +1,11 @@
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
 import LoaderUI from 'components/UI/LoaderUI'
-import { FC, useEffect, useState } from 'react'
+import {  useEffect, useState } from 'react'
 
-type MainLayoutProps = {
-  children: JSX.Element | JSX.Element[]
-}
 
-const MainLayout: FC<MainLayoutProps> = ({ children }) => {
-  const [ loader, setLoader ] = useState<boolean>(true)
+const MainLayout = ({ children }) => {
+  const [ loader, setLoader ] = useState(true)
 
   useEffect(() => {
     setTimeout(() => {

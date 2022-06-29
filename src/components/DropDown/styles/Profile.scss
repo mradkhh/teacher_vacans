@@ -1,0 +1,57 @@
+.profileDropdown {
+  position: relative;
+  cursor: pointer;
+  padding: 7px;
+  border-radius: 16px;
+  border: 1px solid var(--light);
+  &__avatar {
+    gap: 8px;
+
+    &Img {
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+
+  &__select {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    width: max-content;
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    > a {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 8px;
+      font-weight: 400;
+      font-size: 14px;
+      padding: 8px 16px;
+      background-color: var(--white);
+      width: 100%;
+      &:hover {
+        color: var(--dark-blue);
+        background-color: var(--light);
+      }
+      span {
+        font-size: 10px;
+        color: var(--white);
+        background-color: var(--green);
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+    }
+
+    & > a:last-child {
+      color: #ef4027 !important;
+    }
+  }
+}

@@ -1,22 +1,24 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Pagination } from 'antd';
 import VacanciesCard from 'components/Cards/VacanciesCard'
 import MainLayout from 'layouts/MainLayout'
 import 'styles/pages/Vacancies.scss'
-import axios, { AxiosError, AxiosResponse } from 'axios';
-import Requests from 'utils/axiosconfig';
+import Axios from 'utils/axiosconfig';
+import { Link } from 'react-router-dom';
 
 
 const Vacancies = () => {
+  const [ data, setData ] = useState<any[]>([])
+  console.log(data)
   useEffect(() => {
     window.scrollTo(0, 0)
-    Requests.get()
+    Axios.get('vacancy/')
       .then((data) => {
-        console.log(data)
+        console.log(data?.results)
+        setData(data?.results)
       })
       .catch(err => console.error(err))
   }, [])
-
 
  return (
    <MainLayout>
@@ -26,141 +28,29 @@ const Vacancies = () => {
          <div className="vacancies flex">
            <div className="vacanciesCategory">
              <h1>cate</h1>
+
            </div>
            <div
               className="vacanciesItems">
-                   <VacanciesCard
-                    title='Бош мутахассис'
-                    price='2 600 348.00'
-                    jobType='Тўлиқ'
-                    location='Сирдарё вилояти, Ховос тумани'
-                    phone='67-364-65-34'
-                    createDate='17 июн 2022'
-                    deadline='26 июн 2022'
-                    company='Ховос туман ҳокимияти'
-                    view='15'
-                    candidate='146'
-                  />
-                   <VacanciesCard
-                    title='Бош мутахассис'
-                    price='2 600 348.00'
-                    jobType='Тўлиқ'
-                    location='Сирдарё вилояти, Ховос тумани'
-                    phone='67-364-65-34'
-                    createDate='17 июн 2022'
-                    deadline='26 июн 2022'
-                    company='Ховос туман ҳокимияти'
-                    view='15'
-                    candidate='146'
-                  />
-                   <VacanciesCard
-                    title='Бош мутахассис'
-                    price='2 600 348.00'
-                    jobType='Тўлиқ'
-                    location='Сирдарё вилояти, Ховос тумани'
-                    phone='67-364-65-34'
-                    createDate='17 июн 2022'
-                    deadline='26 июн 2022'
-                    company='Ховос туман ҳокимияти'
-                    view='15'
-                    candidate='146'
-                  />
-                   <VacanciesCard
-                    title='Бош мутахассис'
-                    price='2 600 348.00'
-                    jobType='Тўлиқ'
-                    location='Сирдарё вилояти, Ховос тумани'
-                    phone='67-364-65-34'
-                    createDate='17 июн 2022'
-                    deadline='26 июн 2022'
-                    company='Ховос туман ҳокимияти'
-                    view='15'
-                    candidate='146'
-                  />
-                   <VacanciesCard
-                    title='Бош мутахассис'
-                    price='2 600 348.00'
-                    jobType='Тўлиқ'
-                    location='Сирдарё вилояти, Ховос тумани'
-                    phone='67-364-65-34'
-                    createDate='17 июн 2022'
-                    deadline='26 июн 2022'
-                    company='Ховос туман ҳокимияти'
-                    view='15'
-                    candidate='146'
-                  />
-                   <VacanciesCard
-                    title='Бош мутахассис'
-                    price='2 600 348.00'
-                    jobType='Тўлиқ'
-                    location='Сирдарё вилояти, Ховос тумани'
-                    phone='67-364-65-34'
-                    createDate='17 июн 2022'
-                    deadline='26 июн 2022'
-                    company='Ховос туман ҳокимияти'
-                    view='15'
-                    candidate='146'
-                  />
-                   <VacanciesCard
-                    title='Бош мутахассис'
-                    price='2 600 348.00'
-                    jobType='Тўлиқ'
-                    location='Сирдарё вилояти, Ховос тумани'
-                    phone='67-364-65-34'
-                    createDate='17 июн 2022'
-                    deadline='26 июн 2022'
-                    company='Ховос туман ҳокимияти'
-                    view='15'
-                    candidate='146'
-                  />
-                   <VacanciesCard
-                    title='Бош мутахассис'
-                    price='2 600 348.00'
-                    jobType='Тўлиқ'
-                    location='Сирдарё вилояти, Ховос тумани'
-                    phone='67-364-65-34'
-                    createDate='17 июн 2022'
-                    deadline='26 июн 2022'
-                    company='Ховос туман ҳокимияти'
-                    view='15'
-                    candidate='146'
-                  />
-                   <VacanciesCard
-                    title='Бош мутахассис'
-                    price='2 600 348.00'
-                    jobType='Тўлиқ'
-                    location='Сирдарё вилояти, Ховос тумани'
-                    phone='67-364-65-34'
-                    createDate='17 июн 2022'
-                    deadline='26 июн 2022'
-                    company='Ховос туман ҳокимияти'
-                    view='15'
-                    candidate='146'
-                  />
-                   <VacanciesCard
-                    title='Бош мутахассис'
-                    price='2 600 348.00'
-                    jobType='Тўлиқ'
-                    location='Сирдарё вилояти, Ховос тумани'
-                    phone='67-364-65-34'
-                    createDate='17 июн 2022'
-                    deadline='26 июн 2022'
-                    company='Ховос туман ҳокимияти'
-                    view='15'
-                    candidate='146'
-                  />
-                   <VacanciesCard
-                    title='Бош мутахассис'
-                    price='2 600 348.00'
-                    jobType='Тўлиқ'
-                    location='Сирдарё вилояти, Ховос тумани'
-                    phone='67-364-65-34'
-                    createDate='17 июн 2022'
-                    deadline='26 июн 2022'
-                    company='Ховос туман ҳокимияти'
-                    view='15'
-                    candidate='146'
-                  />
+                   {
+                    data?.map((item: any) =>
+                        <Link to={`/organization/${item?.id}`}>
+                          <VacanciesCard
+                              title={item?.title}
+                              price={item?.price}
+                              jobType='Тўлиқ'
+                              location='Сирдарё вилояти, Ховос тумани'
+                              phone={item?.organization?.phone}
+                              createDate='17 июн 2022'
+                              deadline='26 июн 2022'
+                              company={item?.organization?.name}
+                              view={item?.viewer}
+                              candidate='146'
+                            />
+                        </Link>
+
+                      )
+                   }
               <div className="pagination flex">
                    <Pagination defaultCurrent={1} total={50} />
               </div>

@@ -1,4 +1,3 @@
-import Vacancies from 'pages/Vacancies';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from 'pages/Home';
 import Vacancy from 'pages/Vacancy';
@@ -9,7 +8,7 @@ import './styles/design_token.css'
 import './styles/utils.css'
 import './styles/global.scss'
 import Sign from 'pages/Sign';
-import Docs from 'pages/Docs';
+import Vacancies from 'pages/Vacancies';
 
 function App() {
   return (
@@ -17,7 +16,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/vacancies' element={<Vacancies/>}/>
-        <Route path='/vacancy-details' element={<Vacancy/>}/>
+        <Route path='/organization/:id' element={<Vacancy/>}/>
         <Route path='/sign-in/form' element={<Sign/>}/>
       </Routes>
     </BrowserRouter>

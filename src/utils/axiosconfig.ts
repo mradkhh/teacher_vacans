@@ -1,35 +1,58 @@
 import axios, { AxiosResponse } from 'axios'
+import API_URL from './api'
+import { removeToken } from './tokenStorage';
+
+axios.interceptors.request.use(
+	config => config,
+	e => Promise.reject(e),
+);
+axios.interceptors.response.use(
+	response => response,
+	e => {
+		if (typeof e?.toJSON === 'function') {
+			const error = e?.toJSON();
+			if (error?.status === 401) {
+				removeToken();
+				window.location.href = '/';
+			}
+			if (error?.message === 'Network Error') {
+				console.log("Enternet yo'q")
+			}
+			if (process.env.NODE_ENV === 'development') {
+				console.log(error);
+			}
+		}
+		return Promise.reject(e);
+	},
+);
 
 interface IArgs {
-  phone: string,
-  password: string
+	data: any
 }
 interface PostArgs {
   phone: string,
   password: string,
-  confirm_password: string
+  confirm_password?: string
 }
 interface IdArgs {
   id: string
 }
 
+const token = localStorage.getItem('token');
+
 const instance = axios.create({
-  baseURL: 'https://api.vacancy.exadot.io/api/v1/',
+  baseURL: API_URL,
+  headers: token ? { Authorization: `Bearer ${token}`,  } : {},
+	timeout: 15000
 });
 
 const responseBody = (response: AxiosResponse) => response.data;
 
-const typeRequest = {
-  get: (url: string) => instance.get<IArgs>(url).then(responseBody),
-  post: (url:string, body: IArgs) => instance.post<IArgs>(url).then(responseBody),
-  delete: (url:string) => instance.delete<IArgs>(url).then(responseBody)
+
+ const Axios = {
+  get : (url: string) => instance.get<IArgs>(url).then(responseBody),
+  post : (url: string, body: PostArgs) => instance.post<PostArgs>(url, body).then(responseBody),
+  delete : (url : string) => instance.delete<IArgs>(url).then(responseBody)
 }
 
- const Requests = {
-  get : () : Promise<IArgs[]> => typeRequest.get('category/'),
-  getId : (id : string) : Promise<IdArgs> => typeRequest.get(`/books/${id}`),
-  post : (book : PostArgs) : Promise<PostArgs> => typeRequest.post(`register/`, book),
-  delete : (id : string) : Promise<IdArgs> => typeRequest.delete(`/books/${id}`)
-}
-
-export default Requests
+export default Axios
