@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import heroImg from 'static/images/hero.png'
 import  './styles/Hero.scss'
 
 const Hero = () => {
 
-  useState(() => {
+  useEffect(() => {
     window.scrollTo(0,0)
   }, [])
 
