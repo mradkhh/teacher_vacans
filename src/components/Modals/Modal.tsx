@@ -40,7 +40,7 @@ const Modal: FC<ModalProps> = (props) => {
     if (phone.length !== 9) {
       return false
     }
-    if ( password.length < 8 ) {
+    if ( password.length < 3 ) {
       return false
     }
     return true

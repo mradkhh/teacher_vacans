@@ -9,7 +9,7 @@ type PhoneInputProps = {
 
 const PhoneInput: FC<PhoneInputProps> = (props) => {
   const { setPhoneValue, phoneValue } = props
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFocus = (e: ChangeEvent<HTMLInputElement>) => {
     setPhoneValue(e.target.value)
   }
 
@@ -19,7 +19,7 @@ const PhoneInput: FC<PhoneInputProps> = (props) => {
              <InputMask
                 mask="99 999 99 99"
                 value={phoneValue}
-                onChange={handleChange}
+                onFocus={handleFocus}
               />
       </div>
   )

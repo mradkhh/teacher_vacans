@@ -14,12 +14,12 @@ const PasswordInput: FC<stateProps> = (props) => {
     setPassword(!password)
   }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFocus = (e: ChangeEvent<HTMLInputElement>) => {
     setState(e.target.value)
   }
  return (
   <div className="passwordInput__field">
-      <input type={password ? 'password' : 'text'} value={state} onChange={handleChange} placeholder='Pasword'/>
+      <input type={password ? 'password' : 'text'} value={state} onFocus={handleFocus} placeholder='Pasword'/>
       <svg
         onClick={handlePassword}
       width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

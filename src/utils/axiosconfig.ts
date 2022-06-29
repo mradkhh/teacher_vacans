@@ -30,9 +30,10 @@ interface IArgs {
 	data: any
 }
 interface PostArgs {
-  phone: string,
-  password: string,
-  confirm_password?: string
+  phone?: string,
+  password?: string,
+  confirm_password?: string,
+	vacancies?: number
 }
 interface IdArgs {
   id: string
@@ -47,7 +48,6 @@ const instance = axios.create({
 });
 
 const responseBody = (response: AxiosResponse) => response.data;
-
 
  const Axios = {
   get : (url: string) => instance.get<IArgs>(url).then(responseBody),

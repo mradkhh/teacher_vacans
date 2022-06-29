@@ -8,12 +8,23 @@ import Axios from 'utils/axiosconfig';
 
 const Vacancy: FC = () => {
 
-  const [ data, setData ] = useState<{
-    email_address: string,
-    name: string,
-    phone: string,
-    pochta_manzili: string
-  }>()
+  const { id } = useParams()
+
+  type stateType = {
+    organization: any,
+    finished_time: any,
+    liabilities: string,
+    price: number,
+    requirement: string,
+    title: string,
+    type_of_employment: string,
+    type_of_work: string,
+    viewer: number,
+    work_experience: number,
+    working_conditions: string
+  }
+
+  const [ data, setData ] = useState<stateType>()
   console.log(data)
   const cardVariants: Variants = {
     offscreen: {
@@ -32,7 +43,7 @@ const Vacancy: FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    Axios.get(`organization/${id}`)
+    Axios.get(`vacancy/${id}`)
     .then((data) => {
       console.log(data)
       setData(data)
@@ -40,10 +51,10 @@ const Vacancy: FC = () => {
     .catch(err => console.error(err))
   }, [])
 
-  const { id } = useParams()
-
   const handleApply = () => {
-    Axios.get("application/")
+    Axios.post("application/", {
+      vacancies: Number(id)
+    })
     .then((data) => {
       console.log("Apply data", data)
       setData(data)
@@ -61,26 +72,26 @@ const Vacancy: FC = () => {
             <div className="vacancyLongInfo__header flex">
               <div className="vacancyLongInfo__headerInfo">
                 <div className="vacancyLongInfo__headerInfo-head">
-                 <h2>Нуробод тумани ҳокимлиги инвестициялар ва ташқи савдо масалалари бўйича бош мутахассиси</h2>
+                 <h2>{ data?.title }</h2>
                  <div className='vacancyLongInfo__headerInfoSubtitle flex-start'>
                    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <path d="M8 14V17M12 14V17M16 14V17M3 21H21M3 10H21M3 7L12 3L21 7H3ZM4 10H20V21H4V10Z" stroke="#1B53F4" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                    </svg>
-                   { data?.name }
+                    { data?.organization?.name }
                  </div>
                 </div>
                 <div className="vacancyLongInfo__headerInfo-body">
                    <div className='vacancyLongInfo__headerInfoItem'>
                      <span>Манзил</span>
-                     <h5>{data?.pochta_manzili}</h5>
+                     <h5>{data?.organization?.region_parent + ' ' + data?.organization?.region_name}</h5>
                    </div>
                    <div className='vacancyLongInfo__headerInfoItem'>
                      <span>Телефон рақам</span>
-                     <h5>+998{data?.phone}</h5>
+                     <h5>+998{data?.organization?.phone}</h5>
                    </div>
                    <div className='vacancyLongInfo__headerInfoItem'>
                      <span>Электрон почта</span>
-                     <h5>{data?.email_address}</h5>
+                     <h5></h5>
                    </div>
                 </div>
                 <div className="vacancyLongInfo__headerInfo-footer">
@@ -88,14 +99,14 @@ const Vacancy: FC = () => {
                      <svg width={13} height={13} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                        <path d="M6 5V1M14 5V1M5 9H15M3 19H17C17.5304 19 18.0391 18.7893 18.4142 18.4142C18.7893 18.0391 19 17.5304 19 17V5C19 4.46957 18.7893 3.96086 18.4142 3.58579C18.0391 3.21071 17.5304 3 17 3H3C2.46957 3 1.96086 3.21071 1.58579 3.58579C1.21071 3.96086 1 4.46957 1 5V17C1 17.5304 1.21071 18.0391 1.58579 18.4142C1.96086 18.7893 2.46957 19 3 19Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                      </svg>
-
+                  { data?.finished_time }
                  </div>
                  <div className='flex-start'>
                    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                            <path id="Stroke 1" fillRule="evenodd" clipRule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89108 11.9994 8.89108C13.7454 8.89108 15.1614 10.3061 15.1614 12.0531Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                            <path id="Stroke 3" fillRule="evenodd" clipRule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48888 15.806 4.75089 11.998 4.75089H12.002C8.194 4.75089 4.711 7.48888 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                      </svg>
-                     168
+                     {data?.viewer}
                  </div>
                 </div>
               </div>
@@ -103,15 +114,15 @@ const Vacancy: FC = () => {
             <div className="vacancyLongInfo__body">
               <div className="vacancyLongInfo__bodyItem">
                 <h3>МАЛАКАВИЙ ТАЛАБЛАР</h3>
-                <p>Олий маълумотли давлат ташкилотларида камида икки йиллик иш стажига ҳамда сохага оид норматив-хуқуқий хужжатлар билан ишлаш кўникмасига эга бўлиши, Ўзбекистон Республикасининг фуқаролиги мавжудлиги, давлат тилини мукаммал биладиган, мунтазам ўз устида ишлайдиган, одоб-аҳлоқ нормалари, раҳбарлик этикасига риоя этадиган, иш юритиш ва ижро назорати бўйича амалий кўникмаларга ва ахборот хавфсизлиги бўйича билимларга эга.</p>
+                <p>{data?.requirement}</p>
               </div>
               <div className="vacancyLongInfo__bodyItem">
                 <h3>ЛАВОЗИМИЙ МАЖБУРИЯТЛАР</h3>
-                <p> Ўрнатилган лавозим йўриқномаси талабларини бажариш</p>
+                <p>{data?.liabilities}</p>
               </div>
               <div className="vacancyLongInfo__bodyItem">
                 <h3>ИШ ШАРОИТЛАРИ</h3>
-                <p>Иш кунлари: душанба, сешанба, чоршанба, пайшанба, жума. Дам олиш кунлари: шанба, якшанба. Иш вақти: 09: 00 дан 18: 00 гача - Ойлик иш ҳақига қўшимча 10 % устама ҳақи (шахсий устама); моддий рағбатлантириш ва иш самарадорлиги ошириш мақсадида - Ҳар чорак якуни буйича бир ойлик иш ҳақининг 50 % миқдорида мукофотлаш; - Айрим байрам ва бошқа муҳим саналар муносабати билан бир ойлик иш ҳақининг 50 % гача мукофотлаш; - Кўп йиллик хизмати учун қўшимча тўлов; (меҳнат даврларига қараб) - 4-7-йиллар - 5%, 7-10-йиллар - 10%, 10-15-йиллар - 15%, - 15-20-йиллар - 20%, 20-25-йиллар - 25%, 25 дан юқори -30 %; - Меҳнат таътилга чиққан даврда бир ойлик иш ҳақи миқдорида моддий ёрдам; Туй ва маросим сабабли моддий ёрдам кўрсатилади.</p>
+                <p>{data?.working_conditions}</p>
               </div>
             </div>
           </div>
@@ -131,7 +142,7 @@ const Vacancy: FC = () => {
                  </span>
                  <div className='vacancyShortInfo-itemInfo'>
                      <h6>Маош</h6>
-                     <span>2 500 000 сум</span>
+                     <span>{data?.price} so'm</span>
                  </div>
                </li>
                <li className='vacancyShortInfo-item flex-start'>
