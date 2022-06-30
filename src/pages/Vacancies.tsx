@@ -6,10 +6,12 @@ import './styles/Vacancies.scss'
 import Axios from 'utils/axiosconfig';
 import { Link } from 'react-router-dom';
 import { dataType } from 'types/dataType';
+import LoaderUI from 'components/UI/LoaderUI';
 
 
 const Vacancies = () => {
   const [ data, setData ] = useState<dataType>()
+  const [ loading, setLoading ] = useState<boolean>(true)
   console.log(data)
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -19,11 +21,13 @@ const Vacancies = () => {
         setData(data?.results)
       })
       .catch(err => console.error(err))
+      setLoading(false)
   }, [])
 
  return (
    <MainLayout>
      <section id="vacancies">
+      { loading ? <LoaderUI/> : null }
        <div className="wrapper">
         <h2 className="vacancies__title">ВАКАНСИЯЛАР СОНИ: { data?.length } </h2>
          <div className="vacancies flex">

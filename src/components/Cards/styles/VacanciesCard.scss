@@ -18,23 +18,28 @@
     margin-block: 12px;
   }
 
-
   &__body {
     > div {
       font-size: 1rem;
       font-weight: 500;
       margin-bottom: 8px;
       font-weight: 600;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
-      overflow: hidden;
-      display: -webkit-box;
-    }
+      span {
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        display: -webkit-box;
+      }
 
-      > svg {
-        stroke: red !important;
+      svg {
+        min-width: max-content;
       }
     }
+
+    > svg {
+      stroke: red !important;
+    }
+  }
 
   &__footer {
     display: flex;

@@ -1,11 +1,14 @@
-import { FC, useEffect, useState } from 'react'
-import MainLayout from 'layouts/MainLayout'
-import './styles/Vacancy.scss'
-import { useParams } from 'react-router-dom';
 import NewVacancies from 'components/Sections/NewVacancies';
-import Axios from 'utils/axiosconfig';
+import LoaderUI from 'components/UI/LoaderUI';
+import Spiner from 'components/UI/Spiner';
+import MainLayout from 'layouts/MainLayout';
+import { formatStrategyValues } from 'rc-tree-select/lib/utils/strategyUtil';
+import { FC, useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { dataType } from 'types/dataType';
+import Axios from 'utils/axiosconfig';
 import { getToken } from 'utils/tokenStorage';
+import './styles/Vacancy.scss';
 
 const Vacancy: FC = () => {
 
@@ -14,6 +17,7 @@ const Vacancy: FC = () => {
 
   const [ data, setData ] = useState<dataType>()
   const [ applyStatus, setApplyStatus ] = useState<boolean>()
+  const [ pending, setPending ] = useState<boolean>(false)
 
 
   useEffect(() => {
@@ -24,22 +28,24 @@ const Vacancy: FC = () => {
       setApplyStatus(data?.apply)
     })
     .catch(err => console.error(err))
+  }, [pending])
 
-  }, [])
 
   const handleApply = () => {
+    setPending(true)
     if(getToken()) {
-      Axios.post("applys/", {
+      Axios.post("apply/", {
         vacancies: Number(id)
       })
       .then((data) => {
-        setData(data)
+        if (data) {
+          setData(data)
+          setPending(false)
+        }
       })
       .catch(err => console.error(err))
-    } else {
-
-    }
   }
+}
 
  return (
    <MainLayout>
@@ -160,7 +166,7 @@ const Vacancy: FC = () => {
                  </div>
                </li>
                {
-                !applyStatus ? <button disabled datatype='green'>Ariza yuborilgan</button> : <button onClick={handleApply} datatype='blue'>Ариза юбориш</button>
+                applyStatus ? <button disabled datatype='green'>Ariza yuborilgan</button> : <button onClick={handleApply} datatype='blue'>{pending ? <Spiner/> : 'Ариза юбориш'}</button>
                }
           </ul>
         </div>

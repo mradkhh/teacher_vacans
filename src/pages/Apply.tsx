@@ -1,6 +1,7 @@
 import VacanciesCard from 'components/Cards/VacanciesCard'
 import MainLayout from 'layouts/MainLayout'
 import { FC, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { dataType } from 'types/dataType'
 import Axios from 'utils/axiosconfig'
 import { getToken } from 'utils/tokenStorage'
@@ -12,7 +13,7 @@ const Apply: FC = () => {
   console.log(data)
   useEffect(() => {
     if (getToken()) {
-      Axios.get('applys/')
+      Axios.get('apply/')
       .then(data => {
         setData(data)
         console.log(data)
@@ -33,7 +34,8 @@ const Apply: FC = () => {
             <div className="applyList">
               {
                 data ? data.map((item: any) =>
-                    <VacanciesCard
+                    <Link to={`/vacancy/${item?.id}`} key={item?.id}>
+                      <VacanciesCard
                         price={item?.price}
                         phone={item?.organization?.phone}
                         title={item?.title}
@@ -45,6 +47,7 @@ const Apply: FC = () => {
                         company={item?.organization?.name}
                         deadline='____'
                     />
+                    </Link>
                 ) : <></>
               }
             </div>

@@ -47,7 +47,6 @@ const Modal: FC<ModalProps> = (props) => {
   }
 
   const validate = isValid(filteredPhone, passwordValue)
-  console.log(validate)
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -58,7 +57,6 @@ const Modal: FC<ModalProps> = (props) => {
         password: passwordValue
       })
       .then((data) => {
-        console.log(data)
         if (data) {
           setToken(data?.access)
           setPending(false)
