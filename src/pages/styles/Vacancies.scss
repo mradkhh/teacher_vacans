@@ -7,13 +7,42 @@
   .vacancies {
     align-items: start;
     gap: 12px;
+    @media (max-width: 677.98px) {
+      flex-direction: column;
+    }
 
-    .vacanciesCategory {
+    &Category {
       box-sizing: border-box;
       min-width: 240px;
+      max-width: 240px;
+      width: 100%;
       border: 1px solid var(--light);
       padding: 24px;
       border-radius: 14px;
+      @media (max-width: 677.98px) {
+        max-width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .ant-select-selector {
+        border-radius: 10px;
+      }
+
+      > h4 {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 140%;
+        color: var(--dark-blue);
+
+        @media (max-width: 480px) {
+          font-size: 15px;
+        }
+      }
+
+      > * {
+        margin-bottom: 8px;
+      }
     }
 
     .vacanciesItems {

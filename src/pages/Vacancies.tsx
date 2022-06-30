@@ -1,23 +1,28 @@
 import { useEffect, useState } from 'react'
-import { Pagination } from 'antd';
+import { Pagination, PaginationProps, Select } from 'antd';
 import VacanciesCard from 'components/Cards/VacanciesCard'
 import MainLayout from 'layouts/MainLayout'
-import './styles/Vacancies.scss'
+import LoaderUI from 'components/UI/LoaderUI';
 import Axios from 'utils/axiosconfig';
 import { Link } from 'react-router-dom';
 import { dataType } from 'types/dataType';
-import LoaderUI from 'components/UI/LoaderUI';
+import './styles/Vacancies.scss'
 
 
 const Vacancies = () => {
   const [ data, setData ] = useState<dataType>()
   const [ loading, setLoading ] = useState<boolean>(true)
-  console.log(data)
+  const [ page, setPage ] = useState<number>(1)
+  const { Option } = Select;
+
+  const handlePageChange: PaginationProps['onChange'] = (page) => {
+    setPage(page)
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0)
-    Axios.get('vacancy/')
+    Axios.get(`vacancy/?page=${page}&page_size=10`)
       .then((data) => {
-        console.log(data)
         setData(data?.results)
       })
       .catch(err => console.error(err))
@@ -32,8 +37,87 @@ const Vacancies = () => {
         <h2 className="vacancies__title">ВАКАНСИЯЛАР СОНИ: { data?.length } </h2>
          <div className="vacancies flex">
            <div className="vacanciesCategory">
-             <h1>cate</h1>
-
+            <h4>Ҳудуд</h4>
+           <Select
+                showSearch
+                style={{ width: '100%' }}
+                placeholder="Qidirish"
+                optionFilterProp="children"
+                filterOption={(input, option) => (option!.children as unknown as string).includes(input)}
+                filterSort={(optionA, optionB) =>
+                  (optionA!.children as unknown as string)
+                    .toLowerCase()
+                    .localeCompare((optionB!.children as unknown as string).toLowerCase())
+                }
+              >
+                <Option value="1">Toshkent</Option>
+                <Option value="2">Samarqand</Option>
+                <Option value="3">Buxoro</Option>
+                <Option value="4">Namangan</Option>
+                <Option value="5">Xorazim</Option>
+                <Option value="6">Qashqadaryo</Option>
+                <Option value="7">Surxondaryo</Option>
+                <Option value="8">Jizzax</Option>
+                <Option value="9">Sirdaryo</Option>
+                <Option value="10">Farg'ona</Option>
+                <Option value="11">Andijon</Option>
+                <Option value="12">Navoi</Option>
+                <Option value="13">Qoraqalpog'iston</Option>
+              </Select>
+              <h4>Ташкилотлар</h4>
+           <Select
+                showSearch
+                style={{ width: '100%' }}
+                placeholder="Qidirish"
+                optionFilterProp="children"
+                filterOption={(input, option) => (option!.children as unknown as string).includes(input)}
+                filterSort={(optionA, optionB) =>
+                  (optionA!.children as unknown as string)
+                    .toLowerCase()
+                    .localeCompare((optionB!.children as unknown as string).toLowerCase())
+                }
+              >
+                <Option value="1">Toshkent</Option>
+                <Option value="2">Samarqand</Option>
+                <Option value="3">Buxoro</Option>
+                <Option value="4">Namangan</Option>
+                <Option value="5">Xorazim</Option>
+                <Option value="6">Qashqadaryo</Option>
+                <Option value="7">Surxondaryo</Option>
+                <Option value="8">Jizzax</Option>
+                <Option value="9">Sirdaryo</Option>
+                <Option value="10">Farg'ona</Option>
+                <Option value="11">Andijon</Option>
+                <Option value="12">Navoi</Option>
+                <Option value="13">Qoraqalpog'iston</Option>
+              </Select>
+              <h4>Туман/шаҳар</h4>
+           <Select
+                showSearch
+                style={{ width: '100%' }}
+                placeholder="Qidirish"
+                optionFilterProp="children"
+                filterOption={(input, option) => (option!.children as unknown as string).includes(input)}
+                filterSort={(optionA, optionB) =>
+                  (optionA!.children as unknown as string)
+                    .toLowerCase()
+                    .localeCompare((optionB!.children as unknown as string).toLowerCase())
+                }
+              >
+                <Option value="1">Toshkent</Option>
+                <Option value="2">Samarqand</Option>
+                <Option value="3">Buxoro</Option>
+                <Option value="4">Namangan</Option>
+                <Option value="5">Xorazim</Option>
+                <Option value="6">Qashqadaryo</Option>
+                <Option value="7">Surxondaryo</Option>
+                <Option value="8">Jizzax</Option>
+                <Option value="9">Sirdaryo</Option>
+                <Option value="10">Farg'ona</Option>
+                <Option value="11">Andijon</Option>
+                <Option value="12">Navoi</Option>
+                <Option value="13">Qoraqalpog'iston</Option>
+              </Select>
            </div>
            <div
               className="vacanciesItems">
@@ -56,7 +140,11 @@ const Vacancies = () => {
                       )
                    }
               <div className="pagination flex">
-                   <Pagination defaultCurrent={1} total={50} />
+                   <Pagination
+                   current={1}
+                   total={data?.length}
+                   onChange={handlePageChange}
+                    />
               </div>
            </div>
          </div>

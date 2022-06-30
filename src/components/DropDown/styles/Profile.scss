@@ -16,7 +16,7 @@
   &__select {
     position: absolute;
     top: 45px;
-    left: -80%;
+    left: -100%;
     display: flex;
     justify-content: start;
     align-items: start;
@@ -52,6 +52,7 @@
 
     & > a:last-child {
       color: #ef4027 !important;
+      border-top: 1px solid var(--lighter);
     }
   }
 }

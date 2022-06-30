@@ -11,7 +11,9 @@ const Home: FC = () => {
    <MainLayout>
         <Hero/>
         <About/>
+        <div className="wrapper">
         <NewVacancies/>
+        </div>
       </MainLayout>
  )
 }

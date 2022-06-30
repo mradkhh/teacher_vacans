@@ -36,6 +36,7 @@ const Header: FC = () => {
              <li><NavLink to="/vacancies">ВАКАНСИЯЛАР</NavLink></li>
            </ul>
          </nav>
+         { isSetToken() ? <></> : <button className='btn-cabinet' onClick={handleClick} datatype='blue'>Кабинетга кириш</button> }
       </Drawer>
      <div className="wrapper">
        <div className="header flex">

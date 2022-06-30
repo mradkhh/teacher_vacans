@@ -27,6 +27,9 @@
     background-color: var(--white);
     box-shadow: var(--shadow);
     margin-bottom: 12px;
+    @media (max-width: 567.98px) {
+      margin-bottom: 2px;
+    }
 
     > svg {
       position: absolute;
@@ -35,22 +38,49 @@
 
     > input {
       width: 100%;
-      padding-inline: 48px;
+      padding: 12px 48px;
       font-weight: 600;
-    }
-
-    > button {
-      min-width: max-content;
-      @media (max-width: 567.98px) {
-        display: none;
-      }
     }
   }
 
 
   &__result {
-    max-height: 150px;
+    max-height: 300px;
     overflow-y: scroll;
+
+
+    &Item {
+      > h4 {
+        font-size: 20px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--dark-blue);
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        display: -webkit-box;
+      }
+
+      > p {
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        display: -webkit-box;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      > span {
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        display: -webkit-box;
+      }
+
+      &:hover {
+        box-shadow: var(--search-shadow);
+      }
+    }
     ::-webkit-scrollbar {
       width: 5px;
     }

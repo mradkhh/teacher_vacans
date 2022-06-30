@@ -10,7 +10,7 @@ const NewVacancies: FC = () => {
   const [ loading, setLoading ] = useState<boolean>(true)
   const [ data, setData ] = useState<any[]>([])
 
-  const resutData = data.slice(0, 3)
+  const resutData = data.slice(0, 6)
   console.log(resutData)
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -28,7 +28,6 @@ const NewVacancies: FC = () => {
  return (
    <section onClick={handleClick} id="newVacancies">
     { loading ? <LoaderUI/> : null }
-     <div className="wrapper">
        <div className="newVacancies">
          <div className="newVacancies__head flex">
            <h2>ЯНГИ ВАКАНСИЯЛАР</h2>
@@ -46,7 +45,6 @@ const NewVacancies: FC = () => {
             }
          </div>
        </div>
-     </div>
    </section>
  )
 }

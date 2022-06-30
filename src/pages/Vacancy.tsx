@@ -1,9 +1,7 @@
 import NewVacancies from 'components/Sections/NewVacancies';
-import LoaderUI from 'components/UI/LoaderUI';
 import Spiner from 'components/UI/Spiner';
 import MainLayout from 'layouts/MainLayout';
-import { formatStrategyValues } from 'rc-tree-select/lib/utils/strategyUtil';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { dataType } from 'types/dataType';
 import Axios from 'utils/axiosconfig';
@@ -11,25 +9,25 @@ import { getToken } from 'utils/tokenStorage';
 import './styles/Vacancy.scss';
 
 const Vacancy: FC = () => {
-
-  const { id } = useParams()
-
-
   const [ data, setData ] = useState<dataType>()
   const [ applyStatus, setApplyStatus ] = useState<boolean>()
   const [ pending, setPending ] = useState<boolean>(false)
-
+  const { id } = useParams()
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    Axios.get(`vacancy/${id}`)
-    .then((data) => {
-      setData(data?.vacancy)
-      setApplyStatus(data?.apply)
-    })
-    .catch(err => console.error(err))
+    const getVacancy = async () => {
+      try {
+        const res = await Axios.get(`vacancy/${id}`)
+        const data = await res?.vacancy
+        setData(data)
+        setApplyStatus(res?.apply)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    getVacancy()
   }, [pending])
-
 
   const handleApply = () => {
     setPending(true)
@@ -95,6 +93,7 @@ const Vacancy: FC = () => {
                  </div>
                 </div>
               </div>
+
             </div>
             <div className="vacancyLongInfo__body">
               <div className="vacancyLongInfo__bodyItem">
@@ -147,7 +146,7 @@ const Vacancy: FC = () => {
                  </span>
                  <div className='vacancyShortInfo-itemInfo'>
                      <h6>Номзодлар сони</h6>
-                     <span>----</span>
+                     <span>{data?.apply__count}</span>
                  </div>
                </li>
                <li className="vacancyShortInfo-item flex-start">
@@ -162,7 +161,7 @@ const Vacancy: FC = () => {
                  </span>
                  <div className='vacancyShortInfo-itemInfo'>
                    <h6>Қабул ёпилишига қолган вақт</h6>
-                   <div>9 кун--- <span>26 июн 2022 -----</span></div>
+                   <div>{data?.time_left_for_admission} kun<span> {data?.finished_time}</span></div>
                  </div>
                </li>
                {

@@ -10,6 +10,7 @@ import './styles/global.scss'
 import Sign from 'pages/Sign';
 import Vacancies from 'pages/Vacancies';
 import Apply from 'pages/Apply';
+import NotFound from 'pages/NotFound';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path='/vacancies' element={<Vacancies/>}/>
         <Route path='/vacancy/:id' element={<Vacancy/>}/>
         <Route path='/apply' element={<Apply/>}/>
+        <Route path='/*' element={<NotFound/>}/>
         <Route path='/sign-in/form' element={<Sign/>}/>
       </Routes>
     </BrowserRouter>
