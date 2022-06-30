@@ -2,19 +2,20 @@ import { useEffect, useState } from 'react'
 import { Pagination } from 'antd';
 import VacanciesCard from 'components/Cards/VacanciesCard'
 import MainLayout from 'layouts/MainLayout'
-import 'styles/pages/Vacancies.scss'
+import './styles/Vacancies.scss'
 import Axios from 'utils/axiosconfig';
 import { Link } from 'react-router-dom';
+import { dataType } from 'types/dataType';
 
 
 const Vacancies = () => {
-  const [ data, setData ] = useState<any[]>([])
+  const [ data, setData ] = useState<dataType>()
   console.log(data)
   useEffect(() => {
     window.scrollTo(0, 0)
     Axios.get('vacancy/')
       .then((data) => {
-        console.log(data?.results)
+        console.log(data)
         setData(data?.results)
       })
       .catch(err => console.error(err))
@@ -24,7 +25,7 @@ const Vacancies = () => {
    <MainLayout>
      <section id="vacancies">
        <div className="wrapper">
-        <h2 className="vacancies__title">ВАКАНСИЯЛАР СОНИ: 2387</h2>
+        <h2 className="vacancies__title">ВАКАНСИЯЛАР СОНИ: { data?.length } </h2>
          <div className="vacancies flex">
            <div className="vacanciesCategory">
              <h1>cate</h1>
@@ -34,12 +35,12 @@ const Vacancies = () => {
               className="vacanciesItems">
                    {
                     data?.map((item: any) =>
-                        <Link to={`/organization/${item?.id}`}>
+                        <Link to={`/vacancy/${item?.id}`}>
                           <VacanciesCard
                               title={item?.title}
                               price={item?.price}
                               jobType='Тўлиқ'
-                              location='Сирдарё вилояти, Ховос тумани'
+                              location={item?.organization?.region_parent + ' ' + item?.organization?.region_name}
                               phone={item?.organization?.phone}
                               createDate='17 июн 2022'
                               deadline='26 июн 2022'
@@ -48,7 +49,6 @@ const Vacancies = () => {
                               candidate='146'
                             />
                         </Link>
-
                       )
                    }
               <div className="pagination flex">

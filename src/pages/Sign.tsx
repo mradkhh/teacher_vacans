@@ -5,7 +5,7 @@ import { FormEvent, useEffect, useState } from 'react'
 import { getToken, setToken } from 'utils/tokenStorage'
 import { Link, useNavigate } from 'react-router-dom'
 import signImg from 'static/images/sign.png'
-import 'styles/pages/Sign.scss'
+import './styles/Sign.scss'
 import Axios from 'utils/axiosconfig'
 
 const Sign = () => {

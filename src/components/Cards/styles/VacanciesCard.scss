@@ -3,6 +3,9 @@
   border: 1px solid var(--light);
   border-radius: 14px;
   margin-bottom: 12px;
+  max-width: 900px;
+  width: 100%;
+  margin-inline: auto;
 
   &:hover {
     background-color: var(--lighter);
@@ -15,14 +18,6 @@
     margin-block: 12px;
   }
 
-  &__header {
-    > h3 {
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      overflow: hidden;
-      display: -webkit-box;
-    }
-  }
 
   &__body {
     > div {
@@ -30,12 +25,16 @@
       font-weight: 500;
       margin-bottom: 8px;
       font-weight: 600;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+      display: -webkit-box;
+    }
 
       > svg {
         stroke: red !important;
       }
     }
-  }
 
   &__footer {
     display: flex;

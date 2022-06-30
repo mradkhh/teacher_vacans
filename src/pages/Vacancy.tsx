@@ -1,65 +1,44 @@
 import { FC, useEffect, useState } from 'react'
 import MainLayout from 'layouts/MainLayout'
-import { motion, Variants } from "framer-motion";
-import 'styles/pages/Vacancy.scss'
+import './styles/Vacancy.scss'
 import { useParams } from 'react-router-dom';
 import NewVacancies from 'components/Sections/NewVacancies';
 import Axios from 'utils/axiosconfig';
+import { dataType } from 'types/dataType';
+import { getToken } from 'utils/tokenStorage';
 
 const Vacancy: FC = () => {
 
   const { id } = useParams()
 
-  type stateType = {
-    organization: any,
-    finished_time: any,
-    liabilities: string,
-    price: number,
-    requirement: string,
-    title: string,
-    type_of_employment: string,
-    type_of_work: string,
-    viewer: number,
-    work_experience: number,
-    working_conditions: string
-  }
 
-  const [ data, setData ] = useState<stateType>()
-  console.log(data)
-  const cardVariants: Variants = {
-    offscreen: {
-      y: 250,
-      opacity: 0
-    },
-    onscreen: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        duration: 0.4
-      }
-    }
-  };
+  const [ data, setData ] = useState<dataType>()
+  const [ applyStatus, setApplyStatus ] = useState<boolean>()
+
 
   useEffect(() => {
     window.scrollTo(0, 0)
     Axios.get(`vacancy/${id}`)
     .then((data) => {
-      console.log(data)
-      setData(data)
+      setData(data?.vacancy)
+      setApplyStatus(data?.apply)
     })
     .catch(err => console.error(err))
+
   }, [])
 
   const handleApply = () => {
-    Axios.post("application/", {
-      vacancies: Number(id)
-    })
-    .then((data) => {
-      console.log("Apply data", data)
-      setData(data)
-    })
-    .catch(err => console.error(err))
+    if(getToken()) {
+      Axios.post("applys/", {
+        vacancies: Number(id)
+      })
+      .then((data) => {
+        setData(data)
+      })
+      .catch(err => console.error(err))
+    } else {
+
+    }
   }
 
  return (
@@ -91,7 +70,7 @@ const Vacancy: FC = () => {
                    </div>
                    <div className='vacancyLongInfo__headerInfoItem'>
                      <span>Электрон почта</span>
-                     <h5></h5>
+                     <h5>---------------</h5>
                    </div>
                 </div>
                 <div className="vacancyLongInfo__headerInfo-footer">
@@ -162,7 +141,7 @@ const Vacancy: FC = () => {
                  </span>
                  <div className='vacancyShortInfo-itemInfo'>
                      <h6>Номзодлар сони</h6>
-                     <span>45</span>
+                     <span>----</span>
                  </div>
                </li>
                <li className="vacancyShortInfo-item flex-start">
@@ -177,10 +156,12 @@ const Vacancy: FC = () => {
                  </span>
                  <div className='vacancyShortInfo-itemInfo'>
                    <h6>Қабул ёпилишига қолган вақт</h6>
-                   <div>9 кун <span>26 июн 2022</span></div>
+                   <div>9 кун--- <span>26 июн 2022 -----</span></div>
                  </div>
                </li>
-               <button onClick={handleApply} datatype='blue'>Ариза юбориш</button>
+               {
+                !applyStatus ? <button disabled datatype='green'>Ariza yuborilgan</button> : <button onClick={handleApply} datatype='blue'>Ариза юбориш</button>
+               }
           </ul>
         </div>
            : <></>

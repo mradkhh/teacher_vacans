@@ -9,6 +9,7 @@ import './styles/utils.css'
 import './styles/global.scss'
 import Sign from 'pages/Sign';
 import Vacancies from 'pages/Vacancies';
+import Apply from 'pages/Apply';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/vacancies' element={<Vacancies/>}/>
-        <Route path='/organization/:id' element={<Vacancy/>}/>
+        <Route path='/vacancy/:id' element={<Vacancy/>}/>
+        <Route path='/apply' element={<Apply/>}/>
         <Route path='/sign-in/form' element={<Sign/>}/>
       </Routes>
     </BrowserRouter>

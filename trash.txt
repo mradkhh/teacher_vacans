@@ -4,7 +4,7 @@
         confirm_password: passwordValue2
       }, {
         headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
+          'Content-Type': 'appply/json;charset=UTF-8',
           "Access-Control-Allow-Origin": "*",
         }
        })

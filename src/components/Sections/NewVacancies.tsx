@@ -33,7 +33,7 @@ const NewVacancies: FC = () => {
          <div className="newVacancies__grid">
             {
               resutData.map(item =>
-                  <Link key={item?.id} to={`/organization/${item?.id}`} >
+                  <Link key={item?.id} to={`/vacancy/${item?.id}`} >
                     <VacancyCard
                       {...item}
                     />

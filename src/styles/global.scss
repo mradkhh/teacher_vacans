@@ -125,6 +125,18 @@ button[datatype='blue'] {
   }
 }
 
+button[datatype='green'] {
+  background-color: var(--gray);
+  border: none;
+  padding: 12px 48px;
+  border-radius: 10px;
+  color: var(--white);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
 
 // Button press effect
 button {
