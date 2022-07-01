@@ -53,12 +53,10 @@ const Sign = () => {
         confirm_password: passwordValue2
       })
       .then((data) => {
-        console.log(data)
         if (data) {
           setToken(data?.access);
           setPending(false)
           setSuccess(true)
-          console.log(success)
         }
       })
       .catch(err => console.error("Register error: ", err))

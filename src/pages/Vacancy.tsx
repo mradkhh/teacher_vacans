@@ -52,7 +52,7 @@ const Vacancy: FC = () => {
       {
         data ? <div  className="vacancy flex-start">
           <div className="vacancyLongInfo">
-            <div className="vacancyLongInfo__header flex">
+            <div className="vacancyLongInfo__header">
               <div className="vacancyLongInfo__headerInfo">
                 <div className="vacancyLongInfo__headerInfo-head">
                  <h2>{ data?.title }</h2>
@@ -70,7 +70,7 @@ const Vacancy: FC = () => {
                    </div>
                    <div className='vacancyLongInfo__headerInfoItem'>
                      <span>Телефон рақам</span>
-                     <h5>+998{data?.organization?.phone}</h5>
+                     <h5>+998 {data?.organization?.phone}</h5>
                    </div>
                    <div className='vacancyLongInfo__headerInfoItem'>
                      <span>Электрон почта</span>
@@ -93,20 +93,18 @@ const Vacancy: FC = () => {
                  </div>
                 </div>
               </div>
-
             </div>
             <div className="vacancyLongInfo__body">
-              <div className="vacancyLongInfo__bodyItem">
-                <h3>МАЛАКАВИЙ ТАЛАБЛАР</h3>
+              <h3>ТАЛАБЛАР</h3>
+              <div className="vacancyLongInfo__bodyItems">
+                <h4>МАЛАКАВИЙ ТАЛАБЛАР</h4>
                 <p>{data?.requirement}</p>
-              </div>
-              <div className="vacancyLongInfo__bodyItem">
-                <h3>ЛАВОЗИМИЙ МАЖБУРИЯТЛАР</h3>
+                <h4>ЛАВОЗИМИЙ МАЖБУРИЯТЛАР</h4>
                 <p>{data?.liabilities}</p>
-              </div>
-              <div className="vacancyLongInfo__bodyItem">
-                <h3>ИШ ШАРОИТЛАРИ</h3>
+                <h4>ИШ ШАРОИТЛАРИ</h4>
                 <p>{data?.working_conditions}</p>
+                <h4>Ish turi</h4>
+                <p>{data?.type_of_employment}</p>
               </div>
             </div>
           </div>

@@ -14,7 +14,6 @@ const Footer: FC = () => {
             <ul className='flex'>
               <li><Link to="/" className="footerNav__link">АСОСИЙ</Link></li>
               <li><Link to="/vacancies" className="footerNav__link">ВАКАНСИЯЛАР</Link></li>
-              <li><Link to="/docs" className="footerNav__link">Xujjatlar</Link></li>
             </ul>
           </nav>
           <div className="footerSocially">

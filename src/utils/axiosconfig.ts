@@ -19,7 +19,7 @@ axios.interceptors.response.use(
 				console.log("Enternet yo'q")
 			}
 			if (process.env.NODE_ENV === 'development') {
-				console.log(error);
+				console.error(error);
 			}
 		}
 		return Promise.reject(e);
@@ -29,14 +29,12 @@ axios.interceptors.response.use(
 interface IArgs {
 	data: any
 }
+
 interface PostArgs {
   phone?: string,
   password?: string,
   confirm_password?: string,
 	vacancies?: number
-}
-interface IdArgs {
-  id: string
 }
 
 const token = localStorage.getItem('token');

@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react'
+import { Pagination, PaginationProps } from 'antd';
 import { Link } from 'react-router-dom'
 import VacanciesCard from 'components/Cards/VacanciesCard'
 import MainLayout from 'layouts/MainLayout'
@@ -10,21 +11,29 @@ import { getToken } from 'utils/tokenStorage'
 import './styles/Apply.scss'
 
 const Apply: FC = () => {
-
   const [ data, setData ] = useState<dataType>()
   const [ loading, setLoading ] = useState<boolean>(true)
+  const [ page, setPage ] = useState<number>(1)
+  const [ total, setTotal ] = useState<number>()
   console.log(data)
+
+  const handlePageChange: PaginationProps['onChange'] = (page) => {
+    setPage(page)
+  }
   useEffect(() => {
     if (getToken()) {
-      Axios.get('apply/')
-      .then(data => {
-        setData(data)
-        console.log(data)
-      })
-      .catch(err => console.error(err))
+      try {
+        const getApplyData = async () => {
+          const data = await Axios.get(`apply/?page=${page}&page_size=10`)
+          setData(data)
+        }
+        getApplyData()
+      } catch (error) {
+        console.error(error)
+      }
     }
     setLoading(false)
-  }, [])
+  }, [page])
 
  return (
   <MainLayout>
@@ -57,6 +66,13 @@ const Apply: FC = () => {
               ) : <></>
             }
           </div>
+          <div className="pagination flex-center">
+                   <Pagination
+                   current={page}
+                   total={total}
+                   onChange={handlePageChange}
+                    />
+              </div>
         </div>
       </div>
     </section> : <section id="notfound">

@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react'
 import { Pagination, PaginationProps, Select } from 'antd';
-import VacanciesCard from 'components/Cards/VacanciesCard'
-import MainLayout from 'layouts/MainLayout'
+import VacanciesCard from 'components/Cards/VacanciesCard';
 import LoaderUI from 'components/UI/LoaderUI';
-import Axios from 'utils/axiosconfig';
+import MainLayout from 'layouts/MainLayout';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { dataType } from 'types/dataType';
-import './styles/Vacancies.scss'
-
+import Axios from 'utils/axiosconfig';
+import './styles/Vacancies.scss';
 
 const Vacancies = () => {
+  const { Option } = Select;
   const [ data, setData ] = useState<dataType>()
   const [ loading, setLoading ] = useState<boolean>(true)
   const [ page, setPage ] = useState<number>(1)
-  const { Option } = Select;
+  const [ total, setTotal ] = useState<number>()
 
   const handlePageChange: PaginationProps['onChange'] = (page) => {
     setPage(page)
@@ -21,20 +21,27 @@ const Vacancies = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    Axios.get(`vacancy/?page=${page}&page_size=10`)
-      .then((data) => {
-        setData(data?.results)
-      })
-      .catch(err => console.error(err))
+    const getVacancyList = async () => {
+      try {
+        const res = await Axios.get(`vacancy/?page=${page}&page_size=10`)
+        const data = await res?.results
+        setData(data)
+        setTotal(res?.count)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+      getVacancyList()
       setLoading(false)
-  }, [])
+  }, [page])
+
 
  return (
    <MainLayout>
      <section id="vacancies">
       { loading ? <LoaderUI/> : null }
        <div className="wrapper">
-        <h2 className="vacancies__title">ВАКАНСИЯЛАР СОНИ: { data?.length } </h2>
+        <h2 className="vacancies__title">ВАКАНСИЯЛАР СОНИ: { total } </h2>
          <div className="vacancies flex">
            <div className="vacanciesCategory">
             <h4>Ҳудуд</h4>
@@ -123,7 +130,7 @@ const Vacancies = () => {
               className="vacanciesItems">
                    {
                     data?.map((item: any) =>
-                        <Link to={`/vacancy/${item?.id}`}>
+                        <Link to={`/vacancy/${item?.id}`}key={item?.id}>
                           <VacanciesCard
                               title={item?.title}
                               price={item?.price}
@@ -141,8 +148,8 @@ const Vacancies = () => {
                    }
               <div className="pagination flex">
                    <Pagination
-                   current={1}
-                   total={data?.length}
+                   current={page}
+                   total={total}
                    onChange={handlePageChange}
                     />
               </div>

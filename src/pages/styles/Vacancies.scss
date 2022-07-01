@@ -6,6 +6,7 @@
 
   .vacancies {
     align-items: start;
+    min-height: 600px;
     gap: 12px;
     @media (max-width: 677.98px) {
       flex-direction: column;

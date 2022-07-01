@@ -15,3 +15,10 @@
     time_left_for_admission: string,
     finished_time: string
 }
+
+export type typeRes = {
+	count: number,
+	next: string,
+	previous: string,
+	results: {}[]
+}

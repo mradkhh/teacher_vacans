@@ -11,7 +11,6 @@ const NewVacancies: FC = () => {
   const [ data, setData ] = useState<any[]>([])
 
   const resutData = data.slice(0, 6)
-  console.log(resutData)
   useEffect(() => {
     window.scrollTo(0, 0)
     Axios.get('vacancy/')

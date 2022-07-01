@@ -1,17 +1,17 @@
 import { FC, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { removeToken } from 'utils/tokenStorage'
 import './styles/Profile.scss'
 
 const Profile: FC = () => {
   const [ show, setShow ] = useState<boolean>(false)
-  const navigate = useNavigate()
   const handleClick = () => {
     setShow(!show)
   }
 
   const handeLongoutClick = () => {
-    return removeToken(), window.location.reload(),  navigate("/")
+    removeToken()
+    window.location.href = "/"
   }
  return (
   <div className="profileDropdown">

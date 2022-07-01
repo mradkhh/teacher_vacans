@@ -9,7 +9,6 @@ const SearchInput: FC = () => {
   const [ data, setData ] = useState<dataType>()
   const [ value, setValue ] = useState<string>('')
   const [ debouncedValue, setDebouncedValue ] = useState<string>(value)
-  console.log(data)
 
   useEffect(() => {
     const timer = setTimeout(() => setValue(debouncedValue), 1000);
@@ -32,7 +31,6 @@ const SearchInput: FC = () => {
 
   useEffect(() => {
     if (value !== '') {
-      console.log(value)
       onSearchSubmit(value)
     } else {
       setValue('')
