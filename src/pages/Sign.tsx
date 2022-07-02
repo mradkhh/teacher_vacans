@@ -2,7 +2,7 @@ import PhoneInput from 'components/Inputs/PhoneInput'
 import SegmentedUI2 from 'components/UI/SegmentedUI2'
 import Spiner from 'components/UI/Spiner'
 import { FormEvent, useEffect, useState } from 'react'
-import { getToken, setToken } from 'utils/tokenStorage'
+import { setToken } from 'utils/tokenStorage'
 import { Link, useNavigate } from 'react-router-dom'
 import signImg from 'static/images/sign.png'
 import './styles/Sign.scss'
@@ -15,7 +15,6 @@ const Sign = () => {
   const [ phoneValue, setPhoneValue ] = useState('')
   const [ pending, setPending ] = useState<boolean>(false)
   const [ success, setSuccess ] = useState<boolean>(false)
-  const navigate = useNavigate()
   const filteredPhone = phoneValue.replace(/ /g,'').replace(/_/g, '')
 
   const handlePassword = () => {

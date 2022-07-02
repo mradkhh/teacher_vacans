@@ -13,19 +13,21 @@ const NewVacancies: FC = () => {
   const resutData = data.slice(0, 6)
   useEffect(() => {
     window.scrollTo(0, 0)
-    Axios.get('vacancy/')
-      .then((data) => {
-        setData(data?.results)
-      })
-      .catch(err => console.error(err))
+      try {
+        const getNewVacancies = async () => {
+          const res = await Axios.get('vacancy/')
+          const data = res?.results
+          setData(data)
+        }
+        getNewVacancies()
+      } catch (error) {
+        console.error(error)
+      }
       setLoading(false)
   }, [])
 
-  const handleClick = () => {
-    window.location.reload()
-  }
  return (
-   <section onClick={handleClick} id="newVacancies">
+   <section id="newVacancies">
     { loading ? <LoaderUI/> : null }
        <div className="newVacancies">
          <div className="newVacancies__head flex">
