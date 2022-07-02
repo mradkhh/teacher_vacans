@@ -1,4 +1,4 @@
- export type dataType = {
+ type dataType = {
     map(arg0: (item: any) => JSX.Element): import("react").ReactNode
     length: number,
     organization: any,
@@ -16,9 +16,4 @@
     finished_time: string
 }
 
-export type typeRes = {
-	count: number,
-	next: string,
-	previous: string,
-	results: {}[]
-}
+export default dataType

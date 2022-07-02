@@ -1,47 +1,49 @@
-import { Pagination, PaginationProps, Select } from 'antd';
-import VacanciesCard from 'components/Cards/VacanciesCard';
-import LoaderUI from 'components/UI/LoaderUI';
-import MainLayout from 'layouts/MainLayout';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { dataType } from 'types/dataType';
-import Axios from 'utils/axiosconfig';
+import { Pagination, Select } from 'antd';
+import dataType from 'types/dataType';
+import { useFetching } from 'hooks/useFetching';
+import { getPageCount } from 'utils/pages';
+import Axios from 'API/services';
+import VacanciesCard from 'components/UI/Cards/VacanciesCard';
+import LoaderUI from 'components/UI/Loader/LoaderUI';
+import MainLayout from 'layouts/MainLayout';
+import MyPagination from 'components/UI/Pagination/Pagination';
 import './styles/Vacancies.scss';
 
 const Vacancies = () => {
   const { Option } = Select;
   const [ data, setData ] = useState<dataType>()
-  const [ loading, setLoading ] = useState<boolean>(true)
   const [ page, setPage ] = useState<number>(1)
-  const [ total, setTotal ] = useState<number>()
+  const [ limit, setLimit ] = useState<number>(10)
+  const [ totalCount, setTotalCount ] = useState<number>(1)
+  const [ totalPages, setTotalPages ] = useState<number>(1)
 
-  const handlePageChange: PaginationProps['onChange'] = (page) => {
+  // Custom hook
+  const [ fetchVacancies, isVacanciesLoading, reportVacanciesError ] = useFetching(async () => {
+    const res = await Axios.get(`vacancy/?page=${page}&page_size=${limit}`)
+        const data = await res?.results
+        setData(data)
+        setTotalCount(res?.count)
+        setTotalPages( await getPageCount(totalCount, limit))
+  })
+
+  const changerPage = (page: number) => {
     setPage(page)
+    console.log("HEyyy", page)
   }
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    const getVacancyList = async () => {
-      try {
-        const res = await Axios.get(`vacancy/?page=${page}&page_size=10`)
-        const data = await res?.results
-        setData(data)
-        setTotal(res?.count)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-      getVacancyList()
-      setLoading(false)
+    fetchVacancies()
   }, [page])
-
 
  return (
    <MainLayout>
      <section id="vacancies">
-      { loading ? <LoaderUI/> : null }
+      { isVacanciesLoading ? <LoaderUI/> : null }
        <div className="wrapper">
-        <h2 className="vacancies__title">ВАКАНСИЯЛАР СОНИ: { total } </h2>
+        <h2 className="vacancies__title">ВАКАНСИЯЛАР СОНИ: { totalCount } </h2>
          <div className="vacancies flex">
            <div className="vacanciesCategory">
             <h4>Ҳудуд</h4>
@@ -149,13 +151,18 @@ const Vacancies = () => {
               <div className="pagination flex">
                    <Pagination
                    current={page}
-                   total={total}
-                   onChange={handlePageChange}
+                   total={totalCount}
+                   onChange={changerPage}
                     />
               </div>
            </div>
          </div>
        </div>
+        <MyPagination
+            changerPage={changerPage}
+            totalPages={totalPages}
+            page={page}
+          />
      </section>
    </MainLayout>
  )

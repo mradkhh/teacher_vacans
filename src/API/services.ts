@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
-import API_URL from './api'
-import { removeToken } from './tokenStorage';
+import API_URL from './url'
+import { removeToken } from '../utils/tokenStorage';
 
 axios.interceptors.request.use(
 	config => config,

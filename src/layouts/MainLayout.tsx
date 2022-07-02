@@ -1,6 +1,6 @@
-import Footer from 'components/Footer/Footer'
-import Header from 'components/Header/Header'
-import { FC, useEffect, useState } from 'react'
+import Footer from 'components/Footer'
+import Header from 'components/Header'
+import { FC } from 'react'
 
 type MainLayoutProps = {
   children: JSX.Element | JSX.Element[]

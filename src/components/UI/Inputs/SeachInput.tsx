@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { dataType } from 'types/dataType'
-import Axios from 'utils/axiosconfig'
+import dataType from 'types/dataType'
+import Axios from 'API/services'
 import './styles/SearchInput.scss'
 
 const SearchInput: FC = () => {

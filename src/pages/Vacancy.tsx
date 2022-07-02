@@ -1,10 +1,11 @@
+import Axios from 'API/services';
 import NewVacancies from 'components/Sections/NewVacancies';
-import Spiner from 'components/UI/Spiner';
+import Spiner from 'components/UI/Spiner/Spiner';
+import { useFetching } from 'hooks/useFetching';
 import MainLayout from 'layouts/MainLayout';
 import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { dataType } from 'types/dataType';
-import Axios from 'utils/axiosconfig';
+import dataType from 'types/dataType';
 import { getToken } from 'utils/tokenStorage';
 import './styles/Vacancy.scss';
 
@@ -13,36 +14,26 @@ const Vacancy: FC = () => {
   const [ applyStatus, setApplyStatus ] = useState<boolean>()
   const [ pending, setPending ] = useState<boolean>(false)
   const { id } = useParams()
+  const [ fetchVacancy, isVacancyLoading, reportVacancyError ] = useFetching(async () => {
+    const res = await Axios.get(`vacancy/${id}`)
+    const data = await res?.vacancy
+    setData(data)
+    setApplyStatus(res?.apply)
+  })
+  const [ fetchApply, isApplyLoading, reportApplyError ] = useFetching(async () => {
+    if (getToken()) {
+      const data = await Axios.post("apply/", { vacancies: Number(id) })
+      setData(data)
+    }
+  })
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    const getVacancy = async () => {
-      try {
-        const res = await Axios.get(`vacancy/${id}`)
-        const data = await res?.vacancy
-        setData(data)
-        setApplyStatus(res?.apply)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    getVacancy()
-  }, [pending])
+    fetchVacancy()
+  }, [isApplyLoading, id])
 
   const handleApply = () => {
-    setPending(true)
-    if(getToken()) {
-      Axios.post("apply/", {
-        vacancies: Number(id)
-      })
-      .then((data) => {
-        if (data) {
-          setData(data)
-          setPending(false)
-        }
-      })
-      .catch(err => console.error(err))
-  }
+    fetchApply()
 }
 
  return (
@@ -163,7 +154,7 @@ const Vacancy: FC = () => {
                  </div>
                </li>
                {
-                applyStatus ? <button disabled datatype='green'>Ariza yuborilgan</button> : <button onClick={handleApply} datatype='blue'>{pending ? <Spiner/> : 'Ариза юбориш'}</button>
+                applyStatus ? <button disabled datatype='green'>Ariza yuborilgan</button> : <button onClick={handleApply} datatype='blue'>{isApplyLoading ? <Spiner/> : 'Ариза юбориш'}</button>
                }
           </ul>
         </div>

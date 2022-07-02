@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import './styles/Spiner.scss'
+import './Spiner.scss'
 
 const Spiner: FC = () => {
  return (

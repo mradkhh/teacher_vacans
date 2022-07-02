@@ -1,13 +1,12 @@
 import { FC, useEffect, useState } from 'react'
 import { Pagination, PaginationProps } from 'antd';
 import { Link } from 'react-router-dom'
-import VacanciesCard from 'components/Cards/VacanciesCard'
 import MainLayout from 'layouts/MainLayout'
-import NotFound from './NotFound'
-import LoaderUI from 'components/UI/LoaderUI'
-import { dataType } from 'types/dataType'
-import Axios from 'utils/axiosconfig'
+import VacanciesCard from 'components/UI/Cards/VacanciesCard';
 import { getToken } from 'utils/tokenStorage'
+import LoaderUI from 'components/UI/Loader/LoaderUI';
+import dataType from 'types/dataType'
+import Axios from 'API/services'
 import './styles/Apply.scss'
 
 const Apply: FC = () => {

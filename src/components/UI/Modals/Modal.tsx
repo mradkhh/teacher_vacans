@@ -1,11 +1,11 @@
-import PasswordInput from 'components/Inputs/PasswordInput'
-import PhoneInput from 'components/Inputs/PhoneInput'
-import SegmentedUI2 from 'components/UI/SegmentedUI2'
+import PasswordInput from 'components/UI/Inputs/PasswordInput'
+import PhoneInput from 'components/UI/Inputs/PhoneInput'
 import { FC,  FormEvent,  useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import Axios from 'utils/axiosconfig'
+import Axios from 'API/services'
 import { getToken, setToken } from 'utils/tokenStorage'
 import './styles/Modal.scss'
+import SegmentedUI2 from '../Segmented/SegmentedUI2'
 
 type ModalProps = {
   state: boolean,

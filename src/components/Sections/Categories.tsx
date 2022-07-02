@@ -1,4 +1,4 @@
-import SegmentedUI from 'components/UI/SegmentedUI'
+import SegmentedUI from 'components/UI/Segmented/SegmentedUI'
 import React, { FC } from 'react'
 import './styles/Categories.scss'
 

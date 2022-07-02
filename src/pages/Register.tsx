@@ -1,12 +1,12 @@
-import PhoneInput from 'components/Inputs/PhoneInput'
-import SegmentedUI2 from 'components/UI/SegmentedUI2'
-import Spiner from 'components/UI/Spiner'
+import PhoneInput from 'components/UI/Inputs/PhoneInput'
+import Spiner from 'components/UI/Spiner/Spiner'
 import { FormEvent, useEffect, useState } from 'react'
 import { setToken } from 'utils/tokenStorage'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import signImg from 'static/images/sign.png'
 import './styles/Sign.scss'
-import Axios from 'utils/axiosconfig'
+import Axios from 'API/services'
+import SegmentedUI2 from 'components/UI/Segmented/SegmentedUI2'
 
 const Sign = () => {
   const [ password, setPassword ] = useState<boolean>(true)

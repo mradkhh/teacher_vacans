@@ -1,8 +1,8 @@
-import VacancyCard from 'components/Cards/VacancyCard'
-import LoaderUI from 'components/UI/LoaderUI'
+import VacancyCard from 'components/UI/Cards/VacancyCard'
+import LoaderUI from 'components/UI/Loader/LoaderUI'
 import { FC, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Axios from 'utils/axiosconfig'
+import Axios from 'API/services'
 import './styles/NewVacancies.scss'
 
 

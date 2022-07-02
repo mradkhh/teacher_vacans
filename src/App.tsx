@@ -1,29 +1,38 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from 'pages/Home';
-import Vacancy from 'pages/Vacancy';
+import { BrowserRouter, Routes, Route  }  from 'react-router-dom'
+import NotFound from 'pages/NotFound'
+import { publicRoutes, privateRoutes } from 'router'
+import { getToken } from 'utils/tokenStorage'
 import './styles/normalize.css'
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.css'
 import './static/fonts/stylesheet.css'
 import './styles/design_token.css'
 import './styles/utils.css'
 import './styles/global.scss'
-import Sign from 'pages/Sign';
-import Vacancies from 'pages/Vacancies';
-import Apply from 'pages/Apply';
-import NotFound from 'pages/NotFound';
+import { TestContext } from 'context'
 
 function App() {
+  const isAuth = getToken()
   return (
-    <BrowserRouter>
+    <TestContext.Provider value={{
+      isAuth
+    }} >
+      <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/vacancies' element={<Vacancies/>}/>
-        <Route path='/vacancy/:id' element={<Vacancy/>}/>
-        <Route path='/apply' element={<Apply/>}/>
+        {
+          isAuth
+            ?
+            privateRoutes.map(route =>
+              <Route path={route.path} element={<route.component/>}/>
+              )
+            :
+            publicRoutes.map(route =>
+              <Route path={route.path} element={<route.component/>}/>
+              )
+        }
         <Route path='/*' element={<NotFound/>}/>
-        <Route path='/sign-in/form' element={<Sign/>}/>
       </Routes>
     </BrowserRouter>
+    </TestContext.Provider>
   );
 }
 

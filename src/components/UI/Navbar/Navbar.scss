@@ -1,0 +1,25 @@
+.header__mobile-nav {
+
+  &-links {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: start !important;
+    margin-top: 20px;
+
+    li {
+      margin-bottom: 8px;
+      a {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 130%;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  & + button {
+    position: absolute;
+    bottom: 20px;
+  }
+}

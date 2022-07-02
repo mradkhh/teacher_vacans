@@ -8,8 +8,8 @@
 
   .header {
     gap: 48px;
-    @media (max-width: 480px) {
-      gap: 24px;
+    @media (max-width: 767.98px) {
+      gap: 16px;
     }
 
     .header__nav {

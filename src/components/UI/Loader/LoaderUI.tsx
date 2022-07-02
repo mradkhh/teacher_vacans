@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import './styles/LoaderUI.scss'
+import './LoaderUI.scss'
 const LoaderUI: FC = () => {
  return (
   // <div className="loaderWrapper">

@@ -1,18 +1,29 @@
-import Modal from 'components/Modals/Modal'
-import { FC, useState } from 'react'
+import { FC, useContext, useState } from 'react'
+import { NavLink } from 'react-router-dom';
 import { Drawer } from 'antd';
-import { NavLink } from 'react-router-dom'
 import { isSetToken } from 'utils/tokenStorage'
-import './Header.scss'
 import './hamburger.scss'
-import Profile from 'components/DropDown/Profile';
+import './Header.scss'
+import MyModal from 'components/UI/Modals/MyModal';
+import Modal from 'components/UI/Modals/Modal';
+import Navbar from 'components/UI/Navbar/Navbar';
+import Profile from 'components/UI/DropDown/Profile';
+import { TestContext } from 'context';
+
+
+
 const Header: FC = () => {
   const [ toggleNav, setToggleNav ] = useState<boolean>(false)
   const [ showModal, setShowModal ] = useState<boolean>(false)
-  const [visible, setVisible] = useState<boolean>(false);
+  const [ visible, setVisible ] = useState<boolean>(false);
+  const [ modal, setModal ] = useState(false)
+
+  const  { isAuth } = useContext(TestContext)
+  console.log(isAuth)
 
   const handleClick = () => {
-    setShowModal(!showModal)
+    setModal(true)
+    setShowModal(true)
   }
 
   const showDrawer = () => {
@@ -29,13 +40,19 @@ const Header: FC = () => {
       state={showModal}
       setState={setShowModal}
      />
+     <MyModal
+      visible={modal}
+      setVisible={setModal}
+     >
+      <h1>This is Modal glass</h1>
+     </MyModal>
       <Drawer title="Basic Drawer" placement="left" onClose={onClose} visible={visible}>
-        <nav className="header__mobile-nav">
-           <ul className='flex header__mobile-nav-links'>
-             <li><NavLink to="/">АСОСИЙ</NavLink></li>
-             <li><NavLink to="/vacancies">ВАКАНСИЯЛАР</NavLink></li>
-           </ul>
-         </nav>
+      <nav className=".header__mobile-nav">
+        <ul className='flex header__mobile-nav-links'>
+          <li><NavLink to="/">АСОСИЙ</NavLink></li>
+          <li><NavLink to="/vacancies">ВАКАНСИЯЛАР</NavLink></li>
+        </ul>
+      </nav>
          { isSetToken() ? <></> : <button className='btn-cabinet' onClick={handleClick} datatype='blue'>Кабинетга кириш</button> }
       </Drawer>
      <div className="wrapper">
@@ -43,12 +60,7 @@ const Header: FC = () => {
          <div className="header__logo">
            <h1>LOGO</h1>
          </div>
-         <nav className="header__nav">
-           <ul className='flex header__nav-links'>
-             <li><NavLink to="/">АСОСИЙ</NavLink></li>
-             <li><NavLink to="/vacancies">ВАКАНСИЯЛАР</NavLink></li>
-           </ul>
-         </nav>
+        <Navbar/>
          { isSetToken() ? <Profile/> : <button className='btn-cabinet' onClick={handleClick} datatype='blue'>Кабинетга кириш</button> }
          <button
             onClick={showDrawer}
