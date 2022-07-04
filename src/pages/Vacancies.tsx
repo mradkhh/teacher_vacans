@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Pagination, Select } from 'antd';
+import { getPageNumber, setPageNumber } from 'utils/pageNumberStorage';
 import dataType from 'types/dataType';
 import { useFetching } from 'hooks/useFetching';
 import { getPageCount } from 'utils/pages';
@@ -8,13 +9,13 @@ import Axios from 'API/services';
 import VacanciesCard from 'components/UI/Cards/VacanciesCard';
 import LoaderUI from 'components/UI/Loader/LoaderUI';
 import MainLayout from 'layouts/MainLayout';
-import MyPagination from 'components/UI/Pagination/Pagination';
 import './styles/Vacancies.scss';
 
-const Vacancies = () => {
+const Vacancies: FC = () => {
   const { Option } = Select;
+  const pageNumber = getPageNumber('vacancies_page')
   const [ data, setData ] = useState<dataType>()
-  const [ page, setPage ] = useState<number>(1)
+  const [ page, setPage ] = useState<number>(Number(pageNumber) || 1)
   const [ limit, setLimit ] = useState<number>(10)
   const [ totalCount, setTotalCount ] = useState<number>(1)
   const [ totalPages, setTotalPages ] = useState<number>(1)
@@ -30,7 +31,7 @@ const Vacancies = () => {
 
   const changerPage = (page: number) => {
     setPage(page)
-    console.log("HEyyy", page)
+    setPageNumber( 'vacancies_page' , page.toString())
   }
 
   useEffect(() => {
@@ -158,11 +159,6 @@ const Vacancies = () => {
            </div>
          </div>
        </div>
-        <MyPagination
-            changerPage={changerPage}
-            totalPages={totalPages}
-            page={page}
-          />
      </section>
    </MainLayout>
  )

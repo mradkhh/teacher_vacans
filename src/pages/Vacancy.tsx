@@ -1,40 +1,42 @@
+import { FC, useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getToken } from 'utils/tokenStorage';
+import { useFetching } from 'hooks/useFetching';
+import dataType from 'types/dataType';
 import Axios from 'API/services';
 import NewVacancies from 'components/Sections/NewVacancies';
 import Spiner from 'components/UI/Spiner/Spiner';
-import { useFetching } from 'hooks/useFetching';
 import MainLayout from 'layouts/MainLayout';
-import { FC, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import dataType from 'types/dataType';
-import { getToken } from 'utils/tokenStorage';
 import './styles/Vacancy.scss';
 
 const Vacancy: FC = () => {
+  const { id } = useParams()
   const [ data, setData ] = useState<dataType>()
   const [ applyStatus, setApplyStatus ] = useState<boolean>()
-  const [ pending, setPending ] = useState<boolean>(false)
-  const { id } = useParams()
-  const [ fetchVacancy, isVacancyLoading, reportVacancyError ] = useFetching(async () => {
+  const [ fetchVacancy] = useFetching(async () => {
     const res = await Axios.get(`vacancy/${id}`)
-    const data = await res?.vacancy
-    setData(data)
+    setData(res?.vacancy)
     setApplyStatus(res?.apply)
   })
-  const [ fetchApply, isApplyLoading, reportApplyError ] = useFetching(async () => {
-    if (getToken()) {
-      const data = await Axios.post("apply/", { vacancies: Number(id) })
-      setData(data)
-    }
+  const [ fetchApply, isApplyLoading ] = useFetching(async () => {
+      const res = await Axios.post("apply/", { vacancies: Number(id) })
+      setData(res?.data)
   })
+
 
   useEffect(() => {
     window.scrollTo(0, 0)
     fetchVacancy()
   }, [isApplyLoading, id])
 
-  const handleApply = () => {
-    fetchApply()
-}
+  const handleApply = useCallback(() => {
+    if (getToken()) {
+      fetchApply()
+    } else {
+      alert("Ro'yxatdan o'tmagansiz...")
+    }
+
+}, [])
 
  return (
    <MainLayout>

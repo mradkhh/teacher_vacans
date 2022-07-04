@@ -137,6 +137,16 @@ button[datatype='green'] {
   text-transform: uppercase;
   cursor: pointer;
 }
+button[datatype='outline'] {
+  background-color: transparent;
+  border: none;
+  padding: 12px 48px;
+  color: var(--dark-blue);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
 
 
 // Button press effect
@@ -146,6 +156,15 @@ button {
 
   &:active {
     transform: scale(0.98);
+  }
+}
+
+button:disabled {
+  background-color: var(--gray);
+
+  &:hover {
+    background-color: var(--gray);
+    cursor: not-allowed;
   }
 }
 

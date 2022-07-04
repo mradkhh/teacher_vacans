@@ -6,6 +6,7 @@ import Axios from 'API/services'
 import { getToken, setToken } from 'utils/tokenStorage'
 import './styles/Modal.scss'
 import SegmentedUI2 from '../Segmented/SegmentedUI2'
+import { useFetching } from 'hooks/useFetching'
 
 type ModalProps = {
   state: boolean,
@@ -19,7 +20,6 @@ const Modal: FC<ModalProps> = (props) => {
   const [ phoneValue, setPhoneValue ] = useState<string>('')
   const [ passwordValue, setPasswordValue ] = useState<string>('')
   const filteredPhone = phoneValue.replace(/ /g,'').replace(/_/g, '')
-  const navigate = useNavigate()
   type eventType = {
     target: {},
     currentTarget: {}
@@ -48,24 +48,27 @@ const Modal: FC<ModalProps> = (props) => {
 
   const validate = isValid(filteredPhone, passwordValue)
 
+  const [ fetchLogin, isLoginLoading ] = useFetching( async () => {
+    const res = await Axios.post('me/', {
+      phone: filteredPhone,
+      password: passwordValue
+    })
+    setToken(res?.data?.access)
+    if (getToken()) {
+      window.location.href = '/'
+    }
+  } )
+
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (validate) {
-      setPending(true)
-      Axios.post('me/',{
-        phone: filteredPhone,
-        password: passwordValue
-      })
-      .then((data) => {
-        if (data) {
-          setToken(data?.access)
-          setPending(false)
-          setSuccess(true)
-          if (getToken()) {
-            window.location.reload()
-          }
-        }
-      })
+      fetchLogin()
+    } else if (filteredPhone.length !== 9) {
+      alert("Mobil raqam noto'g'ri!")
+    } else if (passwordValue.length < 3) {
+      alert("Parol 3 ta belgidan kam bo'lmasligi kerak!")
+    } else {
+      alert("Xatolik yuz berdi!")
     }
   }
 
@@ -99,7 +102,7 @@ const Modal: FC<ModalProps> = (props) => {
                       setState={setPasswordValue}
                     />
                     <div className="more">
-                        <Link to="/sign-in/form">Рўйхатдан ўтиш</Link>
+                        <Link to="/register">Рўйхатдан ўтиш</Link>
                     </div>
                     <button type='submit' datatype='blue'>КИРИШ</button>
                  </form>

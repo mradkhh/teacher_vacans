@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from 'react'
-import { Pagination, PaginationProps } from 'antd';
+import { FC, useCallback, useEffect, useState } from 'react'
+import { Pagination } from 'antd';
 import { Link } from 'react-router-dom'
 import MainLayout from 'layouts/MainLayout'
 import VacanciesCard from 'components/UI/Cards/VacanciesCard';
@@ -8,42 +8,41 @@ import LoaderUI from 'components/UI/Loader/LoaderUI';
 import dataType from 'types/dataType'
 import Axios from 'API/services'
 import './styles/Apply.scss'
+import { getPageNumber, setPageNumber } from 'utils/pageNumberStorage';
+import { useFetching } from 'hooks/useFetching';
 
 const Apply: FC = () => {
+  const pageNumber = getPageNumber('apply_page')
   const [ data, setData ] = useState<dataType>()
-  const [ loading, setLoading ] = useState<boolean>(true)
-  const [ page, setPage ] = useState<number>(1)
-  const [ total, setTotal ] = useState<number>()
-  console.log(data)
+  const [ page, setPage ] = useState<number>(Number(pageNumber) || 1)
+  const [ total, setTotal ] = useState<number>(1)
 
-  const handlePageChange: PaginationProps['onChange'] = (page) => {
+  const handlePageChange = useCallback((page: number) => {
     setPage(page)
-  }
+    console.log("Render HandlePageChange...")
+    setPageNumber( 'apply_page' , page.toString())
+  }, [])
+
+  const [ fetchingApply, isApplyLoading ] = useFetching( async () => {
+    const res = await Axios.get(`vacancy/apply_list/?page=${page}&page_size=10`)
+    setData(res?.results)
+    setTotal(res?.count)
+  })
   useEffect(() => {
-    if (getToken()) {
-      try {
-        const getApplyData = async () => {
-          const data = await Axios.get(`apply/?page=${page}&page_size=10`)
-          setData(data)
-        }
-        getApplyData()
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    setLoading(false)
+    window.scrollTo(0, 0)
+      fetchingApply()
   }, [page])
 
  return (
   <MainLayout>
      {
-      getToken() ? <section id="apply">
-        { loading ? <LoaderUI/> : null }
+      total ? <section id="apply">
+        { isApplyLoading ? <LoaderUI/> : null }
       <div className="wrapper">
         <div className="apply">
           <div className="applyHead">
           <h1>Yuborilgan arizalar</h1>
-          <h3>Arizalar soni: {data?.length}</h3>
+          <h3>Arizalar soni: {total}</h3>
           </div>
           <div className="applyList">
             {
@@ -77,7 +76,7 @@ const Apply: FC = () => {
     </section> : <section id="notfound">
         <div className="wrapper">
           <div className="notfound">
-            <h1>Kechirasiz, bu sahifa topilmadi!</h1>
+            <h1>Siz birorta ariza yubormagansiz!</h1>
           </div>
         </div>
       </section>

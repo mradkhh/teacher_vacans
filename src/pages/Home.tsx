@@ -6,13 +6,12 @@ import { FC} from 'react'
 
 const Home: FC = () => {
 
-
  return (
    <MainLayout>
         <Hero/>
         <About/>
         <div className="wrapper">
-        <NewVacancies/>
+          <NewVacancies/>
         </div>
       </MainLayout>
  )

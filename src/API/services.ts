@@ -49,7 +49,7 @@ const responseBody = (response: AxiosResponse) => response.data;
 
  const Axios = {
   get : (url: string) => instance.get<IArgs>(url).then(responseBody),
-  post : (url: string, body: PostArgs) => instance.post<PostArgs>(url, body).then(responseBody),
+  post : (url: string, body: PostArgs) => instance.post<PostArgs>(url, body).then((response: AxiosResponse) => response),
   delete : (url : string) => instance.delete<IArgs>(url).then(responseBody)
 }
 

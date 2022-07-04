@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import dataType from 'types/dataType'
 import Axios from 'API/services'
@@ -15,9 +15,24 @@ const SearchInput: FC = () => {
     return () => clearTimeout(timer)
   }, [debouncedValue])
 
+
+  // const searchVacancy = useDebounce( async (value: string) => {
+  //   try {
+  //     const res = await Axios.get(`vacancy/?search=${value}`)
+  //     const data = await res?.results
+  //     setData(data)
+  //    } catch (err) {
+  //     console.error(err)
+  //    }
+  // }, 500 )
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
   }
+
+  const changeHandler = useCallback( async (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value)
+  }, [])
 
   const onSearchSubmit = async (value: string) => {
      try {
@@ -40,7 +55,7 @@ const SearchInput: FC = () => {
 
   const searchResultItems = data?.map(item => {
     return (
-      <Link to={`vacancy/${item?.id}`}>
+      <Link key={item?.id} to={`vacancy/${item?.id}`}>
         <div className="searchInput__resultItem">
           <h4>{item?.title}</h4>
           <p>{item?.organization?.name}</p>

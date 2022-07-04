@@ -1,51 +1,36 @@
-import { FC, useContext, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import { Drawer } from 'antd';
 import { isSetToken } from 'utils/tokenStorage'
-import './hamburger.scss'
-import './Header.scss'
-import MyModal from 'components/UI/Modals/MyModal';
 import Modal from 'components/UI/Modals/Modal';
 import Navbar from 'components/UI/Navbar/Navbar';
 import Profile from 'components/UI/DropDown/Profile';
-import { TestContext } from 'context';
-
-
+import './hamburger.scss'
+import './Header.scss'
 
 const Header: FC = () => {
   const [ toggleNav, setToggleNav ] = useState<boolean>(false)
   const [ showModal, setShowModal ] = useState<boolean>(false)
   const [ visible, setVisible ] = useState<boolean>(false);
-  const [ modal, setModal ] = useState(false)
 
-  const  { isAuth } = useContext(TestContext)
-  console.log(isAuth)
-
-  const handleClick = () => {
-    setModal(true)
+  const handleClick = useCallback(() => {
     setShowModal(true)
-  }
+  }, [])
 
-  const showDrawer = () => {
+  const showDrawer = useCallback(() => {
     setVisible(!visible);
     setToggleNav(!toggleNav)
-  };
+  }, [])
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     setVisible(false);
-  };
+  }, [])
  return (
    <section id="header">
      <Modal
       state={showModal}
       setState={setShowModal}
      />
-     <MyModal
-      visible={modal}
-      setVisible={setModal}
-     >
-      <h1>This is Modal glass</h1>
-     </MyModal>
       <Drawer title="Basic Drawer" placement="left" onClose={onClose} visible={visible}>
       <nav className=".header__mobile-nav">
         <ul className='flex header__mobile-nav-links'>

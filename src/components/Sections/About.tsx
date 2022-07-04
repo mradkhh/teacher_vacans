@@ -1,4 +1,4 @@
-import SearchInput from 'components/UI/Inputs/SeachInput'
+import SearchInput from 'components/UI/Inputs/SearchInput'
 import { FC } from 'react'
 import { motion, Variants } from "framer-motion";
 import './styles/About.scss'

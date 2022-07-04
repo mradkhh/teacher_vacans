@@ -1,12 +1,14 @@
 import PhoneInput from 'components/UI/Inputs/PhoneInput'
 import Spiner from 'components/UI/Spiner/Spiner'
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useCallback, useState } from 'react'
 import { setToken } from 'utils/tokenStorage'
 import { Link } from 'react-router-dom'
 import signImg from 'static/images/sign.png'
 import './styles/Sign.scss'
 import Axios from 'API/services'
 import SegmentedUI2 from 'components/UI/Segmented/SegmentedUI2'
+import { useFetching } from 'hooks/useFetching'
+import useRegisterValidation from 'hooks/useValidation'
 
 const Sign = () => {
   const [ password, setPassword ] = useState<boolean>(true)
@@ -14,56 +16,34 @@ const Sign = () => {
   const [ passwordValue2, setPasswordValue2 ] = useState<string>('')
   const [ phoneValue, setPhoneValue ] = useState('')
   const [ pending, setPending ] = useState<boolean>(false)
-  const [ success, setSuccess ] = useState<boolean>(false)
   const filteredPhone = phoneValue.replace(/ /g,'').replace(/_/g, '')
+  const [ switchVisit, setSwitchVisit ] = useState<boolean>(true)
 
-  const handlePassword = () => {
+  const handlePassword = useCallback(() => {
     setPassword(!password)
-  }
+  }, [])
 
-  const isValid = (phone: string, password1: string, password2: string) => {
-    if (!phone && !password1) {
-      return false
-    }
-    if (phone.length !== 9) {
-      return false
-    }
-    if ( password1.length < 8 ) {
-      return false
-    }
-    if ( password1 !== password2 ) {
-      return false
-    }
-    return true
-  }
+  const validate = useRegisterValidation(filteredPhone, passwordValue1, passwordValue2)
 
-  const validate = isValid(filteredPhone, passwordValue1, passwordValue2)
-  console.log(validate)
-
-
+  const [ fetchingRegister, isRegisterLoading, error, errorReport ] = useFetching(async () => {
+    const res = await Axios.post('register/', {
+      phone: filteredPhone,
+        password: passwordValue1,
+        confirm_password: passwordValue2
+    })
+    setToken(res?.data?.access)
+  })
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setPending(true)
     if (validate) {
-      Axios.post('register/',{
-        phone: filteredPhone,
-        password: passwordValue1,
-        confirm_password: passwordValue2
-      })
-      .then((data) => {
-        if (data) {
-          setToken(data?.access);
-          setPending(false)
-          setSuccess(true)
-        }
-      })
-      .catch(err => console.error("Register error: ", err))
+      fetchingRegister()
     }
-    setPending(false)
+    if (errorReport === "{\"message\":\"phone already taken\"}") {
+      alert("Allaqachon ro'yxatdan o'tgansiz!")
+      window.location.href = "/"
+    }
   }
-
-
 
 
  return (
@@ -71,7 +51,7 @@ const Sign = () => {
      <div className="wrapper flex">
        <div className="sign flex">
          <div className="signForm">
-            <Link to="/">Qaytish</Link>
+            <Link to="/">Bosh sahifa</Link>
            <h1>Kноw релеасе дате фор оур wебсите?</h1>
            <p>Сигнуп то реcеиве упдатес ноw.</p>
            <SegmentedUI2/>
@@ -92,7 +72,7 @@ const Sign = () => {
              <div className="signForm__fieldPassword">
              <input value={passwordValue2} onChange={e => setPasswordValue2(e.target.value)} type={password ? 'password' : 'text'} placeholder='Pasword'/>
              </div>
-             <button disabled={pending ? true : false} className='flex-center press-effect' datatype='blue' type='submit'>
+             <button disabled={!validate ? true : false} className='flex-center press-effect' datatype='blue' type='submit'>
               { pending ? <Spiner/> : "Ro'yxatdan o'tish"  }
              </button>
            </form>
