@@ -1,14 +1,13 @@
-import PhoneInput from 'components/UI/Inputs/PhoneInput'
-import Spiner from 'components/UI/Spiner/Spiner'
-import { FormEvent, useCallback, useState } from 'react'
-import { setToken } from 'utils/tokenStorage'
-import { Link } from 'react-router-dom'
-import signImg from 'static/images/sign.png'
-import './styles/Sign.scss'
+import {FormEvent, useCallback, useEffect, useState} from 'react'
 import Axios from 'API/services'
-import SegmentedUI2 from 'components/UI/Segmented/SegmentedUI2'
+import { Link } from 'react-router-dom'
+import {getToken, setToken} from 'utils/tokenStorage'
 import { useFetching } from 'hooks/useFetching'
+import PhoneInput from 'components/UI/Inputs/PhoneInput'
 import useRegisterValidation from 'hooks/useValidation'
+import SegmentedUI2 from 'components/UI/Segmented/SegmentedUI2'
+import Spiner from 'components/UI/Spiner/Spiner'
+import './styles/Sign.scss'
 
 const Sign = () => {
   const [ password, setPassword ] = useState<boolean>(true)
@@ -16,12 +15,15 @@ const Sign = () => {
   const [ passwordValue2, setPasswordValue2 ] = useState<string>('')
   const [ phoneValue, setPhoneValue ] = useState('')
   const [ pending, setPending ] = useState<boolean>(false)
+  const [ passwordError, setPasswordError ] = useState<boolean>(false)
+  const [ numberError, setNumberError ] = useState<boolean>(false)
+  const [ password1Error, setPassword1Error ] = useState<boolean>(false)
+  const [ password2Error, setPassword2Error ] = useState<boolean>(false)
   const filteredPhone = phoneValue.replace(/ /g,'').replace(/_/g, '')
-  const [ switchVisit, setSwitchVisit ] = useState<boolean>(true)
 
   const handlePassword = useCallback(() => {
     setPassword(!password)
-  }, [])
+  }, [password])
 
   const validate = useRegisterValidation(filteredPhone, passwordValue1, passwordValue2)
 
@@ -32,19 +34,59 @@ const Sign = () => {
         confirm_password: passwordValue2
     })
     setToken(res?.data?.access)
+    if (getToken()) {
+      window.location.href = '/'
+    }
   })
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (validate) {
       fetchingRegister()
+    } else if (filteredPhone.length !== 9 || passwordValue1.length < 6 || passwordValue2.length < 6)  {
+      if (filteredPhone.length !== 9) {
+        setNumberError(true)
+      }
+      if (passwordValue1.length < 6) {
+        setPassword1Error(true)
+      }
+      if (passwordValue2.length < 6) {
+        setPassword2Error(true)
+      }
+    } else if (passwordValue1.length !== passwordValue2.length) {
+      setPassword2Error(true)
+      console.log('THHHis')
+    } else {
+      setPassword2Error(true)
+      console.log("Thissssssssssssssssssss")
+      console.log(validate)
+      console.log(filteredPhone.length === 9)
+      console.log(passwordValue2)
+      console.log(passwordValue1)
+      console.log(passwordValue2 === passwordValue1)
+      console.log(errorReport)
     }
+
+  }
+
+  useEffect(() => {
     if (errorReport === "{\"message\":\"phone already taken\"}") {
       alert("Allaqachon ro'yxatdan o'tgansiz!")
       window.location.href = "/"
     }
+  }, [errorReport])
+
+  const onNumberFocus = () => {
+    setNumberError(false)
   }
 
+  const onPassword2Focus = () => {
+    setPassword2Error(false)
+  }
+
+  const onPassword1Focus = () => {
+    setPassword1Error(false)
+  }
 
  return (
    <main id="sign">
@@ -56,12 +98,42 @@ const Sign = () => {
            <p>Сигнуп то реcеиве упдатес ноw.</p>
            <SegmentedUI2/>
            <form onSubmit={handleSubmit} className="signForm__field">
+             <label style={{display: 'flex', margin: '0 0 -8px 8px'}} htmlFor="phone">Телефон рақам
+               {
+                 numberError ?
+                     <div
+                         style={{
+                           marginLeft: '6px',
+                           color: '#FF725E'
+                         }}
+                         className="report">Raqam noto'g'ri terilgan</div>
+                     : null
+               }
+             </label>
              <PhoneInput
-                phoneValue={phoneValue}
-                setPhoneValue={setPhoneValue}
+                 onFocus={onNumberFocus}
+                 phoneValue={phoneValue}
+                 setPhoneValue={setPhoneValue}
               />
              <div className="signForm__fieldPassword">
-             <input value={passwordValue1} onChange={e => setPasswordValue1(e.target.value)} type={password ? 'password' : 'text'} placeholder='Pasword'/>
+               <label  style={{display: 'flex', flexWrap: 'wrap' ,  margin: '0 0 4px 8px'}} htmlFor="password">Парол
+                 {
+                   password1Error ?
+                       <div
+                           style={{
+                             marginLeft: '6px',
+                             color: '#FF725E'
+                           }}
+                           className="report">Parol 6 ta belgidan kam bo'lmasligi kerak</div>
+                       : null
+                 }
+               </label>
+             <input
+                 onFocus={onPassword1Focus}
+                 value={passwordValue1}
+                 onChange={e => setPasswordValue1(e.target.value)}
+                 type={password ? 'password' : 'text'}
+                 placeholder='Password'/>
               <svg
                 onClick={handlePassword}
               width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,15 +142,29 @@ const Sign = () => {
               </svg>
              </div>
              <div className="signForm__fieldPassword">
-             <input value={passwordValue2} onChange={e => setPasswordValue2(e.target.value)} type={password ? 'password' : 'text'} placeholder='Pasword'/>
+               <label  style={{display: 'flex', margin: '0 0 4px 8px'}} htmlFor="password">Паролni takrorlang
+                 {
+                   password2Error ?
+                       <div
+                           style={{
+                             marginLeft: '6px',
+                             color: '#FF725E'
+                           }}
+                           className="report">Parol mos emas!</div>
+                       : null
+                 }
+               </label>
+             <input
+                 onFocus={onPassword2Focus}
+                 value={passwordValue2}
+                 onChange={e => setPasswordValue2(e.target.value)}
+                 type={password ? 'password' : 'text'}
+                 placeholder='Password'/>
              </div>
-             <button disabled={!validate ? true : false} className='flex-center press-effect' datatype='blue' type='submit'>
-              { pending ? <Spiner/> : "Ro'yxatdan o'tish"  }
+             <button  className='flex-center press-effect' datatype='blue' type='submit'>
+              { isRegisterLoading ? <Spiner/> : "Ro'yxatdan o'tish"  }
              </button>
            </form>
-         </div>
-         <div className="signImg">
-           <img src={signImg} alt="sign" />
          </div>
        </div>
      </div>

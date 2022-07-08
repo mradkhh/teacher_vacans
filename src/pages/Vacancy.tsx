@@ -1,5 +1,5 @@
-import { FC, useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { FC, useEffect, useState } from 'react';
+import {useParams} from 'react-router-dom';
 import { getToken } from 'utils/tokenStorage';
 import { useFetching } from 'hooks/useFetching';
 import dataType from 'types/dataType';
@@ -23,20 +23,18 @@ const Vacancy: FC = () => {
       setData(res?.data)
   })
 
-
   useEffect(() => {
     window.scrollTo(0, 0)
     fetchVacancy()
   }, [isApplyLoading, id])
 
-  const handleApply = useCallback(() => {
+  const handleApply = () => {
     if (getToken()) {
       fetchApply()
     } else {
-      alert("Ro'yxatdan o'tmagansiz...")
+      alert("Ro'yxatdan o'tagansiz")
     }
-
-}, [])
+}
 
  return (
    <MainLayout>
@@ -105,14 +103,10 @@ const Vacancy: FC = () => {
                <li className='vacancyShortInfo-item flex-start'>
                  <span>
                    <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                     <g id="Iconly/Light/Wallet">
-                       <g id="Wallet">
                          <path id="Stroke 1" d="M21.6389 14.3958H17.5906C16.1042 14.3949 14.8993 13.1909 14.8984 11.7045C14.8984 10.218 16.1042 9.01413 17.5906 9.01321H21.6389" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                          <path id="Stroke 3" d="M18.0485 11.6429H17.7369" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                          <path id="Stroke 5" fillRule="evenodd" clipRule="evenodd" d="M7.74766 3H16.3911C19.2892 3 21.6388 5.34951 21.6388 8.24766V15.4247C21.6388 18.3229 19.2892 20.6724 16.3911 20.6724H7.74766C4.84951 20.6724 2.5 18.3229 2.5 15.4247V8.24766C2.5 5.34951 4.84951 3 7.74766 3Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                          <path id="Stroke 7" d="M7.03564 7.53817H12.4346" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                       </g>
-                     </g>
                    </svg>
                  </span>
                  <div className='vacancyShortInfo-itemInfo'>
@@ -123,16 +117,12 @@ const Vacancy: FC = () => {
                <li className='vacancyShortInfo-item flex-start'>
                  <span>
                    <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                     <g id="Iconly/Light/3 User">
-                       <g id="3 User">
                          <path id="Stroke 1" d="M17.8877 10.8967C19.2827 10.7007 20.3567 9.5047 20.3597 8.0557C20.3597 6.6277 19.3187 5.4437 17.9537 5.2197" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                          <path id="Stroke 3" d="M19.7285 14.2503C21.0795 14.4523 22.0225 14.9253 22.0225 15.9003C22.0225 16.5713 21.5785 17.0073 20.8605 17.2813" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                          <path id="Stroke 5" fillRule="evenodd" clipRule="evenodd" d="M11.8867 14.6638C8.67273 14.6638 5.92773 15.1508 5.92773 17.0958C5.92773 19.0398 8.65573 19.5408 11.8867 19.5408C15.1007 19.5408 17.8447 19.0588 17.8447 17.1128C17.8447 15.1668 15.1177 14.6638 11.8867 14.6638Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                          <path id="Stroke 7" fillRule="evenodd" clipRule="evenodd" d="M11.8869 11.8879C13.9959 11.8879 15.7059 10.1789 15.7059 8.06891C15.7059 5.95991 13.9959 4.24991 11.8869 4.24991C9.7779 4.24991 8.0679 5.95991 8.0679 8.06891C8.0599 10.1709 9.7569 11.8809 11.8589 11.8879H11.8869Z" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                          <path id="Stroke 9" d="M5.88509 10.8967C4.48909 10.7007 3.41609 9.5047 3.41309 8.0557C3.41309 6.6277 4.45409 5.4437 5.81909 5.2197" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                          <path id="Stroke 11" d="M4.044 14.2503C2.693 14.4523 1.75 14.9253 1.75 15.9003C1.75 16.5713 2.194 17.0073 2.912 17.2813" stroke="#1B53F4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                       </g>
-                     </g>
                    </svg>
                  </span>
                  <div className='vacancyShortInfo-itemInfo'>
@@ -142,21 +132,37 @@ const Vacancy: FC = () => {
                </li>
                <li className="vacancyShortInfo-item flex-start">
                  <span><svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                       <g id="Iconly/Light/Time Square">
-                         <g id="Time Square">
                            <path id="Stroke 1" fillRule="evenodd" clipRule="evenodd" d="M16.3345 2.75021H7.66549C4.64449 2.75021 2.75049 4.88921 2.75049 7.91621V16.0842C2.75049 19.1112 4.63449 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91621C21.2505 4.88921 19.3645 2.75021 16.3345 2.75021Z" stroke="#FF725E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                            <path id="Stroke 3" d="M15.391 14.0177L12 11.9947V7.63373" stroke="#FF725E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                         </g>
-                       </g>
                      </svg>
                  </span>
                  <div className='vacancyShortInfo-itemInfo'>
                    <h6>Қабул ёпилишига қолган вақт</h6>
-                   <div>{data?.time_left_for_admission} kun<span> {data?.finished_time}</span></div>
+                     {
+                         (Number(data?.time_left_for_admission) > 0) ?
+                             <div>{data?.time_left_for_admission} kun<span> {data?.finished_time}</span></div>
+                             :
+                             <div><span>Yopildi</span></div>
+                     }
+
                  </div>
                </li>
                {
-                applyStatus ? <button disabled datatype='green'>Ariza yuborilgan</button> : <button onClick={handleApply} datatype='blue'>{isApplyLoading ? <Spiner/> : 'Ариза юбориш'}</button>
+                applyStatus ?
+                    <button
+                        disabled={Number(data?.time_left_for_admission) > 0 ? false : true }
+                        datatype='green'
+                    >
+                        Ariza yuborilgan
+                    </button>
+                    :
+                    <button
+                        onClick={handleApply}
+                        disabled={Number(data?.time_left_for_admission) > 0 ? false : true }
+                        datatype='blue'
+                    >
+                        {isApplyLoading ? <Spiner/> : 'Ариза юбориш'}
+                    </button>
                }
           </ul>
         </div>

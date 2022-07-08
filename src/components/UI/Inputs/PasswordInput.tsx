@@ -3,12 +3,13 @@ import './styles/PasswordInput.scss'
 
 type stateProps = {
     state: string,
-    setState: (arg: string) => void
+    setState: (arg: string) => void,
+    onFocus: () => void
 }
 
 const PasswordInput: FC<stateProps> = (props) => {
   const [ password, setPassword ] = useState<boolean>(true)
-  const { state, setState } = props
+  const { state, setState, onFocus } = props
 
   const handlePassword = () => {
     setPassword(!password)
@@ -19,7 +20,11 @@ const PasswordInput: FC<stateProps> = (props) => {
   }
  return (
   <div className="passwordInput__field">
-      <input type={password ? 'password' : 'text'} value={state} onChange={handleChange} placeholder='Pasword'/>
+      <input type={password ? 'password' : 'text'}
+             value={state}
+             onFocus={onFocus}
+             onChange={handleChange}
+             placeholder='Pasword'/>
       <svg
         onClick={handlePassword}
        width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

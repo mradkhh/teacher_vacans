@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route  }  from 'react-router-dom'
+import AppContext from 'context';
+import { initialValue } from 'context/values';
 import NotFound from 'pages/404'
 import { publicRoutes, privateRoutes } from 'router'
 import { getToken } from 'utils/tokenStorage'
@@ -12,6 +15,7 @@ import './styles/global.scss'
 function App() {
   const isAuth = getToken()
   return (
+    <AppContext.Provider value={ initialValue }>
       <BrowserRouter>
       <Routes>
         {
@@ -28,6 +32,7 @@ function App() {
         <Route path='/*' element={<NotFound/>}/>
       </Routes>
     </BrowserRouter>
+    </AppContext.Provider>
   );
 }
 

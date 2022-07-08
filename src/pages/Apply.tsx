@@ -3,7 +3,6 @@ import { Pagination } from 'antd';
 import { Link } from 'react-router-dom'
 import MainLayout from 'layouts/MainLayout'
 import VacanciesCard from 'components/UI/Cards/VacanciesCard';
-import { getToken } from 'utils/tokenStorage'
 import LoaderUI from 'components/UI/Loader/LoaderUI';
 import dataType from 'types/dataType'
 import Axios from 'API/services'
@@ -36,7 +35,7 @@ const Apply: FC = () => {
  return (
   <MainLayout>
      {
-      total ? <section id="apply">
+      total && data?.length ? <section id="apply">
         { isApplyLoading ? <LoaderUI/> : null }
       <div className="wrapper">
         <div className="apply">

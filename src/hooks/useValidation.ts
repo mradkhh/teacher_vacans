@@ -5,10 +5,10 @@ const useRegisterValidation = (phone: string, password1: string, password2: stri
   if (phone.length !== 9) {
     return false
   }
-  if ( password1.length < 8 ) {
+  if ( password1.length < 6 ) {
     return false
   }
-  if ( password1 !== password2 ) {
+  if ( password1.length !== password2.length ) {
     return false
   }
   return true

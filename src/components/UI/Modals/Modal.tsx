@@ -1,12 +1,13 @@
-import PasswordInput from 'components/UI/Inputs/PasswordInput'
-import PhoneInput from 'components/UI/Inputs/PhoneInput'
-import { FC,  FormEvent,  useState } from 'react'
+import {FC, FormEvent, MouseEventHandler, useEffect, useState} from 'react'
+import { useFetching } from 'hooks/useFetching'
 import { Link, useNavigate } from 'react-router-dom'
 import Axios from 'API/services'
 import { getToken, setToken } from 'utils/tokenStorage'
-import './styles/Modal.scss'
+import PhoneInput from 'components/UI/Inputs/PhoneInput'
+import PasswordInput from 'components/UI/Inputs/PasswordInput'
 import SegmentedUI2 from '../Segmented/SegmentedUI2'
-import { useFetching } from 'hooks/useFetching'
+import Spiner from "components/UI/Spiner/Spiner";
+import './styles/Modal.scss'
 
 type ModalProps = {
   state: boolean,
@@ -14,9 +15,12 @@ type ModalProps = {
 }
 
 const Modal: FC<ModalProps> = (props) => {
+  const { setState, state } = props
   const [ pending, setPending ] = useState<boolean>(false)
   const [ success, setSuccess ] = useState<boolean>(false)
-  const { setState, state } = props
+    const [ passwordError, setPasswordError ] = useState<boolean>(false)
+    const [ numberError, setNumberError ] = useState<boolean>(false)
+    const [ loginError, setLoginError ] = useState<boolean>(false)
   const [ phoneValue, setPhoneValue ] = useState<string>('')
   const [ passwordValue, setPasswordValue ] = useState<string>('')
   const filteredPhone = phoneValue.replace(/ /g,'').replace(/_/g, '')
@@ -48,29 +52,51 @@ const Modal: FC<ModalProps> = (props) => {
 
   const validate = isValid(filteredPhone, passwordValue)
 
-  const [ fetchLogin, isLoginLoading ] = useFetching( async () => {
+  const [ fetchLogin, isLoginLoading, isLoginError ] = useFetching( async () => {
     const res = await Axios.post('me/', {
       phone: filteredPhone,
       password: passwordValue
     })
     setToken(res?.data?.access)
+      console.log(res)
     if (getToken()) {
       window.location.href = '/'
     }
   } )
 
+
+
+    const onNumberFocus = () => {
+      setNumberError(false)
+        setLoginError(false)
+    }
+
+    const onPasswordFocus = () => {
+        setPasswordError(false)
+        setLoginError(false)
+    }
+
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (validate) {
       fetchLogin()
-    } else if (filteredPhone.length !== 9) {
-      alert("Mobil raqam noto'g'ri!")
-    } else if (passwordValue.length < 3) {
-      alert("Parol 3 ta belgidan kam bo'lmasligi kerak!")
-    } else {
-      alert("Xatolik yuz berdi!")
+    } else if (filteredPhone.length !== 9 || passwordValue.length < 3) {
+      if (filteredPhone.length !== 9) {
+          setNumberError(true)
+      }
+      if (passwordValue.length < 3) {
+          setPasswordError(true)
+      }
+    }  else {
+        return
     }
   }
+
+  useEffect(() => {
+      if (isLoginError) {
+          setLoginError(true)
+      }
+  }, [isLoginError])
 
  return (
   state ? <div
@@ -91,23 +117,55 @@ const Modal: FC<ModalProps> = (props) => {
                  <SegmentedUI2/>
               <div className="ModalContent__body">
                  <form onSubmit={submit} className="ModalContent__bodyForm">
-                    <label htmlFor="phone">Телефон рақам</label>
+                    <label style={{display: 'flex'}} htmlFor="phone">Телефон рақам
+                        {
+                            numberError ?
+                                <div
+                                    style={{
+                                        marginLeft: '6px',
+                                        color: '#FF725E'
+                                    }}
+                                    className="report">Raqam noto'g'ri terilgan</div>
+                                : null
+                        }
+                    </label>
                     <PhoneInput
+                        onFocus={onNumberFocus}
                         phoneValue={phoneValue}
                         setPhoneValue={setPhoneValue}
                       />
-                    <label htmlFor="password">Парол</label>
+                    <label  style={{display: 'flex'}} htmlFor="password">Парол
+                        {
+                            passwordError ?
+                                <div
+                                    style={{
+                                        marginLeft: '6px',
+                                        color: '#FF725E'
+                                    }}
+                                    className="report">Parol 6 ta belgidan kam bo'lmasligi kerak!</div>
+                                : null
+                        }
+                    </label>
                     <PasswordInput
-                      state={passwordValue}
-                      setState={setPasswordValue}
+                        onFocus={onPasswordFocus}
+                        state={passwordValue}
+                        setState={setPasswordValue}
                     />
-                    <div className="more">
+                    <div className="more" >
+                        {
+                            loginError
+                                ?
+                                <div style={{color: '#FF725E', marginBottom: '4px'}}>Parol yoki raqam noto'g'ri terilgan</div>
+                                : null
+                        }
                         <Link to="/register">Рўйхатдан ўтиш</Link>
                     </div>
-                    <button type='submit' datatype='blue'>КИРИШ</button>
+                    <button type='submit' datatype='blue'>
+                        { isLoginLoading ? <Spiner/> : 'КИРИШ' }
+                        </button>
                  </form>
               </div>
-              <div className="line"></div>
+
             </div>
           </div>
         : <></>

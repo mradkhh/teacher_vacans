@@ -1,7 +1,9 @@
-import { FC, useCallback, useState } from 'react'
-import { NavLink } from 'react-router-dom';
+import { FC, useCallback, useContext, useState } from 'react'
+import {Link, NavLink} from 'react-router-dom';
 import { Drawer } from 'antd';
 import { isSetToken } from 'utils/tokenStorage'
+import AppContext from 'context';
+import { initialValue } from 'context/values';
 import Modal from 'components/UI/Modals/Modal';
 import Navbar from 'components/UI/Navbar/Navbar';
 import Profile from 'components/UI/DropDown/Profile';
@@ -12,6 +14,9 @@ const Header: FC = () => {
   const [ toggleNav, setToggleNav ] = useState<boolean>(false)
   const [ showModal, setShowModal ] = useState<boolean>(false)
   const [ visible, setVisible ] = useState<boolean>(false);
+  const [ isModalOpen, setModalOpen ] = useState<boolean>(initialValue.isModalOpen)
+
+  const contextValue = useContext(AppContext)
 
   const handleClick = useCallback(() => {
     setShowModal(true)
@@ -20,11 +25,13 @@ const Header: FC = () => {
   const showDrawer = useCallback(() => {
     setVisible(!visible);
     setToggleNav(!toggleNav)
-  }, [])
+  }, [visible, toggleNav])
 
   const onClose = useCallback(() => {
     setVisible(false);
-  }, [])
+    setToggleNav(false)
+  }, [visible, toggleNav])
+
  return (
    <section id="header">
      <Modal
@@ -32,7 +39,7 @@ const Header: FC = () => {
       setState={setShowModal}
      />
       <Drawer title="Basic Drawer" placement="left" onClose={onClose} visible={visible}>
-      <nav className=".header__mobile-nav">
+      <nav className="header__mobile-nav">
         <ul className='flex header__mobile-nav-links'>
           <li><NavLink to="/">АСОСИЙ</NavLink></li>
           <li><NavLink to="/vacancies">ВАКАНСИЯЛАР</NavLink></li>
@@ -43,7 +50,9 @@ const Header: FC = () => {
      <div className="wrapper">
        <div className="header flex">
          <div className="header__logo">
-           <h1>LOGO</h1>
+           <Link to='/'>
+               <h1>LOGO</h1>
+           </Link>
          </div>
         <Navbar/>
          { isSetToken() ? <Profile/> : <button className='btn-cabinet' onClick={handleClick} datatype='blue'>Кабинетга кириш</button> }
