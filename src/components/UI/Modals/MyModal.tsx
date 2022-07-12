@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import {FC, memo} from 'react'
 import cl from './styles/MyModal.module.css'
 
 type MyModalProps = {
@@ -7,7 +7,7 @@ type MyModalProps = {
  setVisible: (arg: boolean) => void
 }
 
-const MyModal: FC<MyModalProps> = ({children, visible, setVisible}) => {
+const MyModal: FC<MyModalProps> = memo(({children, visible, setVisible}) => {
 
   const rootClass = [cl.Root]
   if (visible) {
@@ -20,8 +20,6 @@ const MyModal: FC<MyModalProps> = ({children, visible, setVisible}) => {
     </div>
   </div>
  )
-}
-
-
+})
 
 export default MyModal

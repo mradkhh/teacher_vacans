@@ -2,9 +2,9 @@ import About from 'components/Sections/About'
 import Hero from 'components/Sections/Hero'
 import NewVacancies from 'components/Sections/NewVacancies'
 import MainLayout from 'layouts/MainLayout'
-import { FC} from 'react'
+import {FC, memo} from 'react'
 
-const Home: FC = () => {
+const Home: FC = memo(() => {
 
  return (
    <MainLayout>
@@ -15,5 +15,6 @@ const Home: FC = () => {
         </div>
       </MainLayout>
  )
-}
+})
+
 export default Home

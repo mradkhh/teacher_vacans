@@ -1,12 +1,12 @@
 import VacancyCard from 'components/UI/Cards/VacancyCard'
 import LoaderUI from 'components/UI/Loader/LoaderUI'
-import { FC, useEffect, useState } from 'react'
+import {FC, memo, useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import Axios from 'API/services'
 import './styles/NewVacancies.scss'
 
 
-const NewVacancies: FC = () => {
+const NewVacancies: FC = memo(() => {
   const [ loading, setLoading ] = useState<boolean>(true)
   const [ data, setData ] = useState<any[]>([])
 
@@ -48,5 +48,5 @@ const NewVacancies: FC = () => {
        </div>
    </section>
  )
-}
+})
 export default NewVacancies

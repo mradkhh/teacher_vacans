@@ -1,12 +1,12 @@
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
-import { FC } from 'react'
+import {FC, memo, ReactNode} from 'react'
 
 type MainLayoutProps = {
-  children: JSX.Element | JSX.Element[]
+  children: JSX.Element | JSX.Element[] | ReactNode
 }
 
-const MainLayout: FC<MainLayoutProps> = ({ children }) => {
+const MainLayout: FC<MainLayoutProps> = memo(({ children }) => {
 
   return (
     <>
@@ -15,6 +15,6 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
       <Footer/>
     </>
   )
-}
+})
 
 export default MainLayout

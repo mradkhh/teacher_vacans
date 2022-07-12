@@ -1,4 +1,4 @@
-import {FC, FormEvent, MouseEventHandler, useEffect, useState} from 'react'
+import {FC, FormEvent, memo, MouseEventHandler, useCallback, useEffect, useMemo, useState} from 'react'
 import { useFetching } from 'hooks/useFetching'
 import { Link, useNavigate } from 'react-router-dom'
 import Axios from 'API/services'
@@ -7,6 +7,8 @@ import PhoneInput from 'components/UI/Inputs/PhoneInput'
 import PasswordInput from 'components/UI/Inputs/PasswordInput'
 import SegmentedUI2 from '../Segmented/SegmentedUI2'
 import Spiner from "components/UI/Spiner/Spiner";
+import A from "components/UI/A/A";
+import phoneFilter from "helpers/phoneFilter";
 import './styles/Modal.scss'
 
 type ModalProps = {
@@ -14,41 +16,40 @@ type ModalProps = {
   setState: (arg: boolean) => void
 }
 
-const Modal: FC<ModalProps> = (props) => {
-  const { setState, state } = props
-  const [ pending, setPending ] = useState<boolean>(false)
-  const [ success, setSuccess ] = useState<boolean>(false)
+const Modal: FC<ModalProps> = memo((props) => {
+    const { setState, state } = props
     const [ passwordError, setPasswordError ] = useState<boolean>(false)
     const [ numberError, setNumberError ] = useState<boolean>(false)
     const [ loginError, setLoginError ] = useState<boolean>(false)
-  const [ phoneValue, setPhoneValue ] = useState<string>('')
-  const [ passwordValue, setPasswordValue ] = useState<string>('')
-  const filteredPhone = phoneValue.replace(/ /g,'').replace(/_/g, '')
-  type eventType = {
+    const [ phoneValue, setPhoneValue ] = useState<string>('')
+    const [ passwordValue, setPasswordValue ] = useState<string>('')
+    const filteredPhone = phoneFilter(phoneValue)
+    
+    type eventType = {
     target: {},
     currentTarget: {}
   }
+  
+  const handleClick = useCallback((e: eventType) => {
+      (e.target === e.currentTarget) && setState(false)
+  }, [setState])
 
-  const handleClick = (e: eventType) => {
-    (e.target === e.currentTarget) && setState(false)
-  }
+  const handleButtonClick = useCallback(() => {
+      setState(false)
+  }, [setState])
 
-  const handleButtonClick = () => {
-    setState(false)
-  }
-
-  const isValid = (phone: string, password: string) => {
-    if (!phone && !password) {
-      return false
-    }
-    if (phone.length !== 9) {
-      return false
-    }
-    if ( password.length < 3 ) {
-      return false
-    }
-    return true
-  }
+  const isValid = useMemo(() => (phone: string, password: string) => {
+      if (!phone && !password) {
+          return false
+      }
+      if (phone.length !== 9) {
+          return false
+      }
+      if ( password.length < 3 ) {
+          return false
+      }
+      return true
+  }, [])
 
   const validate = isValid(filteredPhone, passwordValue)
 
@@ -58,23 +59,20 @@ const Modal: FC<ModalProps> = (props) => {
       password: passwordValue
     })
     setToken(res?.data?.access)
-      console.log(res)
     if (getToken()) {
       window.location.href = '/'
     }
   } )
 
-
-
-    const onNumberFocus = () => {
-      setNumberError(false)
+    const onNumberFocus = useCallback(() => {
+        setNumberError(false)
         setLoginError(false)
-    }
+    }, [setNumberError, setLoginError])
 
-    const onPasswordFocus = () => {
+    const onPasswordFocus = useCallback(() => {
         setPasswordError(false)
         setLoginError(false)
-    }
+    }, [setPasswordError, setLoginError])
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -158,7 +156,7 @@ const Modal: FC<ModalProps> = (props) => {
                                 <div style={{color: '#FF725E', marginBottom: '4px'}}>Parol yoki raqam noto'g'ri terilgan</div>
                                 : null
                         }
-                        <Link to="/register">Рўйхатдан ўтиш</Link>
+                        <A href="/register" text="Рўйхатдан ўтиш" ></A>
                     </div>
                     <button type='submit' datatype='blue'>
                         { isLoginLoading ? <Spiner/> : 'КИРИШ' }
@@ -171,5 +169,5 @@ const Modal: FC<ModalProps> = (props) => {
         : <></>
  )
 
-}
+})
 export default Modal

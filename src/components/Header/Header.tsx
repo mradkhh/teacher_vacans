@@ -1,4 +1,4 @@
-import { FC, useCallback, useContext, useState } from 'react'
+import {FC, memo, useCallback, useContext, useState} from 'react'
 import {Link, NavLink} from 'react-router-dom';
 import { Drawer } from 'antd';
 import { isSetToken } from 'utils/tokenStorage'
@@ -10,7 +10,7 @@ import Profile from 'components/UI/DropDown/Profile';
 import './hamburger.scss'
 import './Header.scss'
 
-const Header: FC = () => {
+const Header: FC = memo(() => {
   const [ toggleNav, setToggleNav ] = useState<boolean>(false)
   const [ showModal, setShowModal ] = useState<boolean>(false)
   const [ visible, setVisible ] = useState<boolean>(false);
@@ -20,7 +20,7 @@ const Header: FC = () => {
 
   const handleClick = useCallback(() => {
     setShowModal(true)
-  }, [])
+  }, [showModal])
 
   const showDrawer = useCallback(() => {
     setVisible(!visible);
@@ -68,5 +68,5 @@ const Header: FC = () => {
      </div>
    </section>
  )
-}
+})
 export default Header

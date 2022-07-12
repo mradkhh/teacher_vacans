@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from 'react'
+import {FC, memo, useCallback, useEffect, useState} from 'react'
 import { Pagination } from 'antd';
 import { Link } from 'react-router-dom'
 import MainLayout from 'layouts/MainLayout'
@@ -10,7 +10,7 @@ import './styles/Apply.scss'
 import { getPageNumber, setPageNumber } from 'utils/pageNumberStorage';
 import { useFetching } from 'hooks/useFetching';
 
-const Apply: FC = () => {
+const Apply: FC = memo(() => {
   const pageNumber = getPageNumber('apply_page')
   const [ data, setData ] = useState<dataType>()
   const [ page, setPage ] = useState<number>(Number(pageNumber) || 1)
@@ -20,7 +20,7 @@ const Apply: FC = () => {
     setPage(page)
     console.log("Render HandlePageChange...")
     setPageNumber( 'apply_page' , page.toString())
-  }, [])
+  }, [setPage])
 
   const [ fetchingApply, isApplyLoading ] = useFetching( async () => {
     const res = await Axios.get(`vacancy/apply_list/?page=${page}&page_size=10`)
@@ -82,5 +82,6 @@ const Apply: FC = () => {
      }
   </MainLayout>
  )
-}
+})
+
 export default Apply

@@ -1,5 +1,5 @@
 import SearchInput from 'components/UI/Inputs/SearchInput'
-import { FC } from 'react'
+import {FC, memo} from 'react'
 import { motion, Variants } from "framer-motion";
 import './styles/About.scss'
 
@@ -19,7 +19,7 @@ const cardVariants: Variants = {
   }
 };
 
-const About: FC = () => {
+const About: FC = memo(() => {
  return (
   <section id="about">
     <div className="wrapper">
@@ -91,5 +91,5 @@ const About: FC = () => {
     </div>
   </section>
  )
-}
+})
 export default About

@@ -22,7 +22,8 @@
       "static/*": ["static/*"],
       "styles/*": ["styles/*"],
       "layouts/*": ["layouts/*"],
-      "pages/*": ["pages/*"]
+      "pages/*": ["pages/*"],
+      "helpers/*": ["helpers/*"],
     }
   },
   "include": [

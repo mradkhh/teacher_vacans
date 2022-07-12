@@ -1,8 +1,8 @@
 
-import { FC } from 'react'
+import {FC, memo} from 'react'
 import './styles/SegmentedUI2.scss'
 
-const SegmentedUI2: FC = () => {
+const SegmentedUI2: FC = memo(() => {
   return (
       <div className="segmentWrapper">
           <div className="segmentContainer">
@@ -21,5 +21,5 @@ const SegmentedUI2: FC = () => {
           </div>
       </div>
   )
-}
+})
 export default SegmentedUI2

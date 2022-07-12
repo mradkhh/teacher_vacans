@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import {FC, memo} from 'react'
 import './LoaderUI.scss'
-const LoaderUI: FC = () => {
+const LoaderUI: FC = memo(() => {
  return (
   // <div className="loaderWrapper">
   //   <span className="loader" />
@@ -10,6 +10,6 @@ const LoaderUI: FC = () => {
   </div>
 
  )
-}
+})
 
 export default LoaderUI

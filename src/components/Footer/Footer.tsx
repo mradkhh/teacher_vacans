@@ -1,8 +1,8 @@
-import { FC } from 'react'
+import {FC, memo} from 'react'
 import { Link } from 'react-router-dom'
 import './Footer.scss'
 
-const Footer: FC = () => {
+const Footer: FC = memo(() => {
  return (
    <section id="footer">
      <div className="wrapper">
@@ -49,5 +49,5 @@ const Footer: FC = () => {
      </div>
    </section>
  )
-}
+})
 export default Footer

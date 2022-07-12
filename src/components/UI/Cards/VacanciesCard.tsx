@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import {FC, memo} from 'react'
 import { motion, Variants } from "framer-motion";
 import './styles/VacanciesCard.scss'
 
@@ -30,7 +30,7 @@ const cardVariants: Variants = {
   }
 };
 
-const VacanciesCard: FC<VacanciesCardProps> = (props) => {
+const VacanciesCard: FC<VacanciesCardProps> = memo((props) => {
  const { title, company, phone, price, location, jobType, createDate, deadline, view } = props
   return (
    <motion.div
@@ -105,5 +105,5 @@ const VacanciesCard: FC<VacanciesCardProps> = (props) => {
    </motion.div>
    </motion.div>
  )
-}
+})
 export default VacanciesCard

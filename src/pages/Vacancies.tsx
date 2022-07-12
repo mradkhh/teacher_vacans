@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import {FC, memo, useCallback, useEffect, useState, useMemo} from 'react';
 import { Link } from 'react-router-dom';
 import { Pagination, Select } from 'antd';
 import { getPageNumber, setPageNumber } from 'utils/pageNumberStorage';
@@ -11,7 +11,7 @@ import LoaderUI from 'components/UI/Loader/LoaderUI';
 import MainLayout from 'layouts/MainLayout';
 import './styles/Vacancies.scss';
 
-const Vacancies: FC = () => {
+const Vacancies: FC = memo(() => {
   const { Option } = Select;
   const pageNumber = getPageNumber('vacancies_page')
   const [ data, setData ] = useState<dataType>()
@@ -49,30 +49,52 @@ const Vacancies: FC = () => {
     const nextOrganization = res?.next
   } )
 
-  const changerPage = (page: number) => {
-    setPage(page)
-    setPageNumber( 'vacancies_page' , page.toString())
-  }
+
+    const vacancyItem = useMemo(() =>  data?.map((item: any) =>{
+            return (
+                <Link to={`/vacancy/${item?.id}`}key={item?.id}>
+                    <VacanciesCard
+                        title={item?.title}
+                        price={item?.price}
+                        jobType='Тўлиқ'
+                        location={item?.organization?.region_parent + ' ' + item?.organization?.region_name}
+                        phone={item?.organization?.phone}
+                        createDate='17 июн 2022'
+                        deadline='26 июн 2022'
+                        company={item?.organization?.name}
+                        view={item?.viewer}
+                        candidate='146'
+                    />
+                </Link>
+            )
+        })
+    , [data])
+
+  const changerPage = useCallback((page: number) => {
+      setPage(page)
+      setPageNumber( 'vacancies_page' , page.toString())
+  }, [setPage, setPageNumber])
 
   const handleFetchRegion = () => {
-    fetchRegions()
+      fetchRegions()
   }
 
-  const handleRegionSelectChange = (value: number) => {
-    setRegionId(value)
-  }
+  const handleRegionSelectChange = useCallback((value: number) => {
+      setRegionId(value)
+  }, [setRegionId])
+
   const handleFetchOrganization = () => {
-    fetchOrganization()
+      fetchOrganization()
   }
 
-  const handleOrganizationSelectChange = (value: number) => {
-    setOrganizationId(value)
-  }
+  const handleOrganizationSelectChange = useCallback((value: number) => {
+      setOrganizationId(value)
+  }, [setOrganizationId])
 
-  const handlerResetFilter = () => {
-    setOrganizationId(undefined)
-    setRegionId(undefined)
-  }
+  const handlerResetFilter = useCallback(() => {
+      setOrganizationId(undefined)
+      setRegionId(undefined)
+  }, [setOrganizationId, setRegionId])
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -136,26 +158,8 @@ const Vacancies: FC = () => {
               </Select>
               <button onClick={handlerResetFilter} type='button' datatype='blue' style={{width: '100%'}}>Tozalash</button>
            </div>
-           <div
-              className="vacanciesItems">
-                   {
-                    data?.map((item: any) =>
-                        <Link to={`/vacancy/${item?.id}`}key={item?.id}>
-                          <VacanciesCard
-                              title={item?.title}
-                              price={item?.price}
-                              jobType='Тўлиқ'
-                              location={item?.organization?.region_parent + ' ' + item?.organization?.region_name}
-                              phone={item?.organization?.phone}
-                              createDate='17 июн 2022'
-                              deadline='26 июн 2022'
-                              company={item?.organization?.name}
-                              view={item?.viewer}
-                              candidate='146'
-                            />
-                        </Link>
-                      )
-                   }
+           <div className="vacanciesItems">
+                   { vacancyItem }
               <div className="pagination flex">
                    <Pagination
                    current={page}
@@ -169,5 +173,6 @@ const Vacancies: FC = () => {
      </section>
    </MainLayout>
  )
-}
+})
+
 export default Vacancies

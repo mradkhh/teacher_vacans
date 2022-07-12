@@ -1,45 +1,42 @@
-import { FC, useEffect, useState } from 'react'
+import {FC, memo, useEffect, useMemo, useState} from 'react'
 import { Link } from 'react-router-dom'
 import dataType from 'types/dataType'
 import Axios from 'API/services'
 import './styles/SearchInput.scss'
 import useInput from 'hooks/useInput'
+import {useFetching} from "../../../hooks/useFetching";
 
-const SearchInput: FC = () => {
+const SearchInput: FC = memo(() => {
 
   const search = useInput('')
   const [ data, setData ] = useState<dataType>()
 
-  const onSearchSubmit = async (search: string) => {
-     try {
-      const res = await Axios.get(`vacancy/?search=${search}`)
-      const data = await res?.results
+  const [ fetchSubmit, isSubmitLoading ] = useFetching( async () => {
+      const res = await Axios.get(`vacancy/?search=${search.value}`)
+      const data = res?.results
       setData(data)
-     } catch (err) {
-      console.error(err)
-     }
-  }
+  })
 
   useEffect(() => {
     if (search.value !== '') {
-      onSearchSubmit(search.value)
+      fetchSubmit()
     } else {
       search.setValue('')
     }
   }, [search.value])
 
 
-  const searchResultItems = data?.map(item => {
-    return (
-      <Link key={item?.id} to={`vacancy/${item?.id}`}>
-        <div className="searchInput__resultItem">
-          <h4>{item?.title}</h4>
-          <p>{item?.organization?.name}</p>
-          <span>{item?.organization?.region_parent}</span>
-        </div>
-      </Link>
-    )
-  })
+  const searchResultItems = useMemo(() => data?.map(item => {
+      return (
+          <Link key={item?.id} to={`vacancy/${item?.id}`}>
+              <div className="searchInput__resultItem">
+                  <h4>{item?.title}</h4>
+                  <p>{item?.organization?.name}</p>
+                  <span>{item?.organization?.region_parent}</span>
+              </div>
+          </Link>
+      )
+  }), [data])
 
  return (
   <>
@@ -58,5 +55,5 @@ const SearchInput: FC = () => {
     </div>
   </>
  )
-}
+})
 export default SearchInput

@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react'
+import {ChangeEvent, FC, memo, useCallback, useState} from 'react'
 import './styles/PasswordInput.scss'
 
 type stateProps = {
@@ -7,17 +7,17 @@ type stateProps = {
     onFocus: () => void
 }
 
-const PasswordInput: FC<stateProps> = (props) => {
+const PasswordInput: FC<stateProps> = memo((props) => {
   const [ password, setPassword ] = useState<boolean>(true)
   const { state, setState, onFocus } = props
 
-  const handlePassword = () => {
-    setPassword(!password)
-  }
+  const handlePassword = useCallback(() => {
+      setPassword(!password)
+  }, [password])
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setState(e.target.value)
-  }
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+      setState(e.target.value)
+  }, [setState])
  return (
   <div className="passwordInput__field">
       <input type={password ? 'password' : 'text'}
@@ -33,5 +33,5 @@ const PasswordInput: FC<stateProps> = (props) => {
       </svg>
   </div>
  )
-}
+})
 export default PasswordInput

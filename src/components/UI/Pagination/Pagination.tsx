@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import {FC, memo} from 'react'
 import { getPagesArray } from 'utils/pages'
 import cl from './Pagination.module.css'
 
@@ -8,7 +8,7 @@ type PaginationProps = {
   page: number
 }
 
-const MyPagination: FC<PaginationProps> = ({totalPages,  changerPage, page}) => {
+const MyPagination: FC<PaginationProps> = memo(({totalPages,  changerPage, page}) => {
 
   const pagesArray = getPagesArray(totalPages)
  return (
@@ -20,5 +20,6 @@ const MyPagination: FC<PaginationProps> = ({totalPages,  changerPage, page}) => 
           }
       </div>
  )
-}
+})
+
 export default MyPagination

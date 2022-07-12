@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import {FC, memo, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import { getToken } from 'utils/tokenStorage';
 import { useFetching } from 'hooks/useFetching';
@@ -9,7 +9,7 @@ import Spiner from 'components/UI/Spiner/Spiner';
 import MainLayout from 'layouts/MainLayout';
 import './styles/Vacancy.scss';
 
-const Vacancy: FC = () => {
+const Vacancy: FC = memo(() => {
   const { id } = useParams()
   const [ data, setData ] = useState<dataType>()
   const [ applyStatus, setApplyStatus ] = useState<boolean>()
@@ -174,5 +174,6 @@ const Vacancy: FC = () => {
 
    </MainLayout>
  )
-}
+})
+
 export default Vacancy

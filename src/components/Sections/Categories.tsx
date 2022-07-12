@@ -1,9 +1,9 @@
 import SegmentedUI from 'components/UI/Segmented/SegmentedUI'
-import React, { FC } from 'react'
+import React, {FC, memo} from 'react'
 import './styles/Categories.scss'
 
 
-const Categories: FC = () => {
+const Categories: FC = memo(() => {
  return (
    <section id="categories">
      <div className="wrapper">
@@ -15,5 +15,5 @@ const Categories: FC = () => {
      </div>
    </section>
  )
-}
+})
 export default Categories

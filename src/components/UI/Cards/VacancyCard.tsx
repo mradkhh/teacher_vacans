@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import {FC, memo} from 'react'
 import { motion, Variants } from "framer-motion";
 import './styles/VacancyCard.scss'
 
@@ -23,7 +23,7 @@ const cardVariants: Variants = {
   }
 };
 
-const VacancyCard: FC<VacancyCardProps> = ({title, price, organization}) => {
+const VacancyCard: FC<VacancyCardProps> = memo(({title, price, organization}) => {
   const { name, region_name, region_parent } = organization
 
 
@@ -55,5 +55,5 @@ const VacancyCard: FC<VacancyCardProps> = ({title, price, organization}) => {
    </motion.div>
    </motion.div>
  )
-}
+})
 export default VacancyCard

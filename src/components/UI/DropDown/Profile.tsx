@@ -1,9 +1,9 @@
-import { FC, useState } from 'react'
+import {FC, memo, useState} from 'react'
 import { Link } from 'react-router-dom'
 import { removeToken } from 'utils/tokenStorage'
 import './styles/Profile.scss'
 
-const Profile: FC = () => {
+const Profile: FC = memo(() => {
   const [ show, setShow ] = useState<boolean>(false)
   const handleClick = () => {
     setShow(!show)
@@ -53,5 +53,5 @@ const Profile: FC = () => {
     }
   </div>
  )
-}
+})
 export default Profile

@@ -1,8 +1,8 @@
-import { FC } from 'react'
+import {FC, memo} from 'react'
 import { NavLink } from 'react-router-dom'
 import './Navbar.scss'
 
-const Navbar: FC = () => {
+const Navbar: FC = memo(() => {
  return (
   <nav className="header__nav">
     <ul className='flex header__nav-links'>
@@ -11,5 +11,5 @@ const Navbar: FC = () => {
     </ul>
   </nav>
  )
-}
+})
 export default Navbar

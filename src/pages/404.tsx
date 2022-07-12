@@ -1,8 +1,8 @@
 import MainLayout from 'layouts/MainLayout'
-import { FC } from 'react'
+import {FC, memo} from 'react'
 import './styles/NotFound.scss'
 
-const NotFound: FC = () => {
+const NotFound: FC = memo(() => {
  return (
   <MainLayout>
      <section id="notfound">
@@ -14,5 +14,6 @@ const NotFound: FC = () => {
       </section>
   </MainLayout>
  )
-}
+})
+
 export default NotFound

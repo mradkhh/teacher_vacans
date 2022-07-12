@@ -1,4 +1,4 @@
-import {FormEvent, useCallback, useEffect, useState} from 'react'
+import {FormEvent, memo, useCallback, useEffect, useState} from 'react'
 import Axios from 'API/services'
 import { Link } from 'react-router-dom'
 import {getToken, setToken} from 'utils/tokenStorage'
@@ -9,7 +9,7 @@ import SegmentedUI2 from 'components/UI/Segmented/SegmentedUI2'
 import Spiner from 'components/UI/Spiner/Spiner'
 import './styles/Sign.scss'
 
-const Sign = () => {
+const Sign = memo(() => {
   const [ password, setPassword ] = useState<boolean>(true)
   const [ passwordValue1, setPasswordValue1 ] = useState<string>('')
   const [ passwordValue2, setPasswordValue2 ] = useState<string>('')
@@ -55,16 +55,8 @@ const Sign = () => {
       }
     } else if (passwordValue1.length !== passwordValue2.length) {
       setPassword2Error(true)
-      console.log('THHHis')
     } else {
       setPassword2Error(true)
-      console.log("Thissssssssssssssssssss")
-      console.log(validate)
-      console.log(filteredPhone.length === 9)
-      console.log(passwordValue2)
-      console.log(passwordValue1)
-      console.log(passwordValue2 === passwordValue1)
-      console.log(errorReport)
     }
 
   }
@@ -76,17 +68,17 @@ const Sign = () => {
     }
   }, [errorReport])
 
-  const onNumberFocus = () => {
+  const onNumberFocus = useCallback(() => {
     setNumberError(false)
-  }
+  }, [setNumberError])
 
-  const onPassword2Focus = () => {
+  const onPassword2Focus = useCallback(() => {
     setPassword2Error(false)
-  }
+  }, [setPassword2Error])
 
-  const onPassword1Focus = () => {
+  const onPassword1Focus = useCallback(() => {
     setPassword1Error(false)
-  }
+  }, [setPassword1Error])
 
  return (
    <main id="sign">
@@ -170,5 +162,6 @@ const Sign = () => {
      </div>
    </main>
  )
-}
+})
+
 export default Sign
